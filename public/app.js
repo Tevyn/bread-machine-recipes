@@ -36,10 +36,6 @@
     r.cols.forEach((c, j) => { const d = Math.abs(SIZES.indexOf(c) - want); if (d < bd) { bd = d; best = j; } });
     return { i: best, label: r.cols[best], off: true };
   }
-  function time(r) {
-    const t = r.meta.time;
-    return t[st.size] || t['*'] || Object.values(t)[0] || '';
-  }
 
   // ---------- list ----------
   function home() {
@@ -71,15 +67,12 @@
   function recipe(r, keepScroll) {
     document.title = r.n;
     const c = col(r);
-    const meta = [r.p === 'No machine' ? null : r.p, time(r),
-      r.meta.add && `add-ins ${r.meta.add}`, r.meta.paddle && `paddle ${r.meta.paddle}`,
-      r.meta.delay === 'Yes' ? 'delay ok' : r.meta.delay.startsWith('Yes') ? 'delay ok (be there for add-ins)' : null,
-      r.y && !r.sz.length ? r.y : null].filter(Boolean);
+    const when = r.meta.add ? `<span class="when">+${r.meta.add}</span>` : '';
     const head = !c.label ? '<th></th>' : r.sz.length > 1
       ? `<th><button class="size${c.off ? ' off' : ''}">${esc(c.label)}</button></th>`
       : `<th>${esc(c.label)}</th>`;
     const table = (rows, pick, name) => rows.map(it =>
-      `<tr class="${it.a ? 'add' : ''}"><td>${it.a ? '⏰ ' : ''}${md(name(it.n))}</td><td>${esc(pick(it))}</td></tr>`).join('');
+      `<tr class="${it.a ? 'add' : ''}"><td>${md(name(it.n))}${it.a ? when : ''}</td><td>${esc(pick(it))}</td></tr>`).join('');
     const ing = r.sec.map((s, k) => `${s.t ? `<h3>${esc(secTitle(s.t))}</h3>` : ''}
       <table class="ing">${k === 0 ? `<thead><tr><th></th>${head}</tr></thead>` : ''}<tbody>${table(s.i, it => it.g[c.i], short)}</tbody></table>`).join('');
     const shownWarn = r.sec.some(s => s.i.some(it => (it.g[c.i] || '').includes('⚠️')));
@@ -103,7 +96,6 @@
     app.innerHTML = `
       <a class="back" href="#" aria-label="Back"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a>
       <h1>${esc(r.n)}</h1>
-      <p class="meta">${meta.map(esc).join(' · ')}</p>
       ${ing}
       ${shownWarn ? r.w.map(w => `<p class="note">⚠️ ${md(w)}</p>`).join('') : ''}
       <ol>${r.st.map(s => `<li>${md(s)}</li>`).join('')}</ol>
