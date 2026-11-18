@@ -16,9 +16,6 @@ button, select { font: inherit; color: inherit; }
 
 /* home */
 .bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-.seg { display: flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-.seg button { border: 0; background: none; padding: 8px 14px; cursor: pointer; }
-.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
 select {
   border: 1px solid var(--line); border-radius: 10px; background: var(--bg);
   padding: 8px 10px; flex: 1 1 0; min-width: 0;
@@ -43,7 +40,12 @@ h3 { font-size: 14px; font-weight: 600; color: var(--mute); margin: 20px 0 0; }
 .ing td:last-child { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; font-weight: 600; }
 .ing tr.add td { color: var(--accent); }
 .ing th:last-child { text-align: right; }
-.ing th.off { color: var(--accent); }
+.size {
+  border: 0; background: none; padding: 6px 0 6px 12px; margin: -6px 0;
+  color: var(--fg); font-weight: 600; font-size: 15px; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.size.off { color: var(--accent); }
 ol { padding-left: 22px; }
 ol li { margin: 0 0 10px; }
 .note { color: var(--mute); font-size: 15px; margin: 6px 0; }

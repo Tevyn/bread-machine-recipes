@@ -14,8 +14,8 @@
   let lock = null;
 
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const md = s => {
-    const m = /^(\*+)/.exec(s); const pre = m ? m[1] : ''; let t = esc(s.slice(pre.length));
+  const md = (s, foot) => {
+    const m = foot && /^(\*+)/.exec(s); const pre = m ? m[1] : ''; let t = esc(s.slice(pre.length));
     t = t.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\*(.+?)\*/g, '<i>$1</i>');
     return pre + t;
   };
@@ -72,10 +72,6 @@
       return `<th data-k="${k}" class="${cls}"${s}>${label}</th>`;
     };
     app.innerHTML = `
-      <div class="bar">
-        <div class="seg">${SIZES.map(s =>
-          `<button data-s="${s}" aria-pressed="${s === st.size}">${s}</button>`).join('')}</div>
-      </div>
       <div class="bar">${opts('p', 'Program', progs)}${opts('t', 'Type', types)}${opts('d', 'Diet', diets)}</div>
       <table class="list">
         <thead><tr>${th('n', 'Recipe')}${th('p', 'Program')}${th('m', 'Time', 'num')}</tr></thead>
@@ -84,7 +80,6 @@
           <td class="num mute">${hm(r)}</td></tr>`).join('')}</tbody>
       </table>`;
 
-    app.querySelectorAll('[data-s]').forEach(b => b.onclick = () => { st.size = b.dataset.s; store.set('size', st.size); home(); });
     app.querySelectorAll('[data-f]').forEach(s => s.onchange = () => { st.f[s.dataset.f] = s.value; store.set('f', st.f); home(); });
     app.querySelectorAll('th[data-k]').forEach(h => h.onclick = () => {
       const k = h.dataset.k;
@@ -94,14 +89,16 @@
   }
 
   // ---------- recipe ----------
-  function recipe(r) {
+  function recipe(r, keepScroll) {
     document.title = r.n;
     const c = col(r);
     const meta = [r.p === 'No machine' ? null : r.p, time(r),
       r.meta.add && `add-ins ${r.meta.add}`, r.meta.paddle && `paddle ${r.meta.paddle}`,
       r.meta.delay === 'Yes' ? 'delay ok' : r.meta.delay.startsWith('Yes') ? 'delay ok (be there for add-ins)' : null,
       r.y && !r.sz.length ? r.y : null].filter(Boolean);
-    const head = c.label ? `<th class="${c.off ? 'off' : ''}">${esc(c.label)}</th>` : '<th></th>';
+    const head = !c.label ? '<th></th>' : r.sz.length > 1
+      ? `<th><button class="size${c.off ? ' off' : ''}">${esc(c.label)}</button></th>`
+      : `<th>${esc(c.label)}</th>`;
     const table = (rows, pick, name) => rows.map(it =>
       `<tr class="${it.a ? 'add' : ''}"><td>${it.a ? '⏰ ' : ''}${md(name(it.n))}</td><td>${esc(pick(it))}</td></tr>`).join('');
     const ing = r.sec.map((s, k) => `${s.t ? `<h3>${esc(secTitle(s.t))}</h3>` : ''}
@@ -117,10 +114,15 @@
       ${ing}
       ${shownWarn ? r.w.map(w => `<p class="note">⚠️ ${md(w)}</p>`).join('') : ''}
       <ol>${r.st.map(s => `<li>${md(s)}</li>`).join('')}</ol>
-      ${r.no.map(n => `<p class="note">${md(n)}</p>`).join('')}
+      ${r.no.map(n => `<p class="note">${md(n, true)}</p>`).join('')}
       ${r.uf ? `<details><summary>Ultra-Fast</summary><p>Rapid-rise yeast: <b>5.4 g</b> (1 lb) · <b>7.8 g</b> (1½ lb). Program Ultra-Fast (1:53 / 2:03), then step 3 on. Add-ins 0:13 · paddle 0:18.</p></details>` : ''}
       <details><summary>Original</summary>${orig}</details>`;
-    window.scrollTo(0, 0);
+    const btn = app.querySelector('button.size');
+    if (btn) btn.onclick = () => {
+      const avail = SIZES.filter(s => r.cols.includes(s));
+      st.size = avail[(avail.indexOf(r.cols[c.i]) + 1) % avail.length]; store.set('size', st.size); recipe(r, true);
+    };
+    if (!keepScroll) window.scrollTo(0, 0);
     acquire();
   }
 
