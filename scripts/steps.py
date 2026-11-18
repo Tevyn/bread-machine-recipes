@@ -8,14 +8,28 @@ DOUGH_FIRST = "Add the dough ingredients in order."
 def go(prog, crust=True):
     return f"Run it on {prog}."
 
-def addin(x):
-    return f"Toss in the {x} at the add-in beep."
+# When the add-in and paddle beeps sound, as h:mm after pressing start.
+BEEPS = {
+    'White': ('0:40', '1:15'), 'French': ('1:15', '1:55'), 'Whole Wheat': ('0:50', '1:35'),
+    'Sweet': ('0:30', '1:10'), 'Gluten Free': ('0:20', '0:35'),
+}
 
-RESHAPE = "If you want a tidier loaf, pull the paddle at the paddle beep and reshape the dough before it carries on."
+def _in(t):
+    h, m = map(int, t.split(':'))
+    parts = ([f"{h} hour" + ("s" if h > 1 else "")] if h else []) + ([f"{m} minutes"] if m else [])
+    return " ".join(parts) + " in"
+
+def add_at(prog): return _in(BEEPS[prog][0])
+def paddle_at(prog): return _in(BEEPS[prog][1])
+
+def addin(x, prog):
+    return f"Toss in the {x} {add_at(prog)}."
+
+def paddle(prog):
+    return f"Pull the paddle {paddle_at(prog)}."
 COOL = "Let it cool completely on a rack before slicing."
 DOUGH = "Run it on Dough. It takes an hour and a half."
 GF_GO = "Run it on Gluten Free."
-GF_RESHAPE = RESHAPE
 
 JAM = [first(), "Run it on Jam.",
        "Scrape down the pan about 10 to 15 minutes in so everything mixes.",
@@ -23,50 +37,50 @@ JAM = [first(), "Run it on Jam.",
 CAKE = ["Spray the pan, then add everything in order.",
         "Run it on Cake, and scrape down the sides with a spatula while it mixes.",
         "Let it cool on a rack before slicing. If the top's still a little wet, give it 10 to 15 minutes on Keep Warm first."]
-ROLL_IT = ("At the paddle beep, pull the dough and the paddle. Roll the dough into a rectangle about ¼ inch thick "
+ROLL_IT = ("Pull the dough and the paddle {at}. Roll the dough into a rectangle about ¼ inch thick "
            "and 16 inches long, {spread}, and roll it up tight from a short end. Tuck the ends under and set it back in "
            "the pan without the paddle.")
 
 STEPS = {
-    "Basic White Bread": [first(), go("White"), RESHAPE, COOL],
-    "Oatmeal Bread": [first(), go("White"), RESHAPE, COOL],
+    "Basic White Bread": [first(), go("White"), paddle("White"), COOL],
+    "Oatmeal Bread": [first(), go("White"), paddle("White"), COOL],
     "Cinnamon Swirl Bread": [DOUGH_FIRST, go("White"),
         "While it kneads, mix the swirl sugar and cinnamon (and the raisins, if you're using them) in a small bowl.",
-        ROLL_IT.format(spread="sprinkle the swirl all over it"), COOL],
-    "Rye Bread": [first(), go("White"), RESHAPE, COOL],
-    "Jalapeño Cheddar Bread": [first("jalapeño and cheddar"), go("White"), addin("jalapeño and cheddar"), RESHAPE, COOL],
-    "French Bread Loaf": [first(), go("French", False), RESHAPE, COOL],
-    "King Arthur-Style French Bread": [first(), go("French", False), RESHAPE, COOL],
+        ROLL_IT.format(at=paddle_at("White"), spread="sprinkle the swirl all over it"), COOL],
+    "Rye Bread": [first(), go("White"), paddle("White"), COOL],
+    "Jalapeño Cheddar Bread": [first("jalapeño and cheddar"), go("White"), addin("jalapeño and cheddar", "White"), paddle("White"), COOL],
+    "French Bread Loaf": [first(), go("French", False), paddle("French"), COOL],
+    "King Arthur-Style French Bread": [first(), go("French", False), paddle("French"), COOL],
     "Rustic Italian Loaf": [first("sesame seeds"), go("French", False),
-        "At the paddle beep you can pull the paddle, reshape, and sprinkle the sesame seeds on top.", COOL],
-    "Country French Bread with Olives & Rosemary": [first("olives"), go("French", False), addin("olives"), RESHAPE, COOL],
-    "Parmesan Peppercorn French Bread": [first(), go("French", False), RESHAPE, COOL],
-    "Semolina Bread with Fennel & Golden Raisins": [first("raisins"), go("French", False), addin("raisins"), RESHAPE, COOL],
-    "Basic Whole Wheat Bread": [first(), go("Whole Wheat"), RESHAPE, COOL],
-    "Multigrain Cereal Wheat Bread": [first(), go("Whole Wheat"), RESHAPE, COOL],
-    "Nutty Whole Wheat Bread": [first("nuts and seeds"), go("Whole Wheat"), addin("nuts and seeds"), RESHAPE, COOL],
-    "Wheat Bran Bread": [first(), go("Whole Wheat"), RESHAPE, COOL],
-    "Challah Loaf": [first(), go("Sweet"), RESHAPE, COOL],
-    "Brioche Loaf": [first(), go("Sweet"), RESHAPE, COOL],
-    "Panettone Loaf": [first("dried fruit"), go("Sweet"), addin("dried fruit"), RESHAPE, COOL],
+        paddle("French") + " Sprinkle the sesame seeds on top if you like.", COOL],
+    "Country French Bread with Olives & Rosemary": [first("olives"), go("French", False), addin("olives", "French"), paddle("French"), COOL],
+    "Parmesan Peppercorn French Bread": [first(), go("French", False), paddle("French"), COOL],
+    "Semolina Bread with Fennel & Golden Raisins": [first("raisins"), go("French", False), addin("raisins", "French"), paddle("French"), COOL],
+    "Basic Whole Wheat Bread": [first(), go("Whole Wheat"), paddle("Whole Wheat"), COOL],
+    "Multigrain Cereal Wheat Bread": [first(), go("Whole Wheat"), paddle("Whole Wheat"), COOL],
+    "Nutty Whole Wheat Bread": [first("nuts and seeds"), go("Whole Wheat"), addin("nuts and seeds", "Whole Wheat"), paddle("Whole Wheat"), COOL],
+    "Wheat Bran Bread": [first(), go("Whole Wheat"), paddle("Whole Wheat"), COOL],
+    "Challah Loaf": [first(), go("Sweet"), paddle("Sweet"), COOL],
+    "Brioche Loaf": [first(), go("Sweet"), paddle("Sweet"), COOL],
+    "Panettone Loaf": [first("dried fruit"), go("Sweet"), addin("dried fruit", "Sweet"), paddle("Sweet"), COOL],
     "Chocolate Cherry Loaf": [DOUGH_FIRST, go("Sweet"),
-        ROLL_IT.format(spread="scatter the chocolate and cherries over it"), COOL],
+        ROLL_IT.format(at=paddle_at("Sweet"), spread="scatter the chocolate and cherries over it"), COOL],
     "Babka": [DOUGH_FIRST, go("Sweet"),
         "While it kneads, whisk the filling together in a small bowl.",
-        ROLL_IT.format(spread="sprinkle the filling over it"),
+        ROLL_IT.format(at=paddle_at("Sweet"), spread="sprinkle the filling over it"),
         "While it bakes, make the glaze: warm the sugar and water in a small pot until the sugar dissolves.",
         "As soon as it's done, turn it out and brush the glaze over it while it's warm. Extra syrup keeps in the fridge for a couple of weeks.",
         "Let it cool completely before slicing."],
-    "Gluten-Free Sandwich Bread": [first(), GF_GO, GF_RESHAPE, COOL],
-    "Gluten-Free Multigrain Bread": [first(), GF_GO, GF_RESHAPE, COOL],
+    "Gluten-Free Sandwich Bread": [first(), GF_GO, paddle("Gluten Free"), COOL],
+    "Gluten-Free Multigrain Bread": [first(), GF_GO, paddle("Gluten Free"), COOL],
     "Gluten-Free Cinnamon Swirl Bread": [DOUGH_FIRST, GF_GO,
         "While it kneads, mix the sugar and cinnamon in a small bowl.",
-        "At the paddle beep, pull the dough and the paddle. Dust the counter heavily with GF flour (the blend or white rice flour), "
+        f"Pull the dough and the paddle {paddle_at('Gluten Free')}. Dust the counter heavily with GF flour (the blend or white rice flour), "
         "roll the dough into a rectangle about ¼ inch thick and 16 inches long, sprinkle the swirl over it, and roll it up tight "
         "from a short end. Tuck the ends under and set it back in the pan without the paddle.", COOL],
     "Gluten-Free Pizza Dough": ["Heat the oven to 400°F with racks in the lower and upper thirds.",
         first("brushing oil and toppings"), GF_GO,
-        "At the paddle beep, end the program. The dough's done.",
+        f"End the program {paddle_at('Gluten Free')}. The dough's done.",
         "Shape it into two 12-inch or four 6-inch rounds. Extra dough keeps overnight in the fridge or a month in the freezer.",
         "Brush the edges with oil and par-bake on the lower rack for 15 minutes, until the edges just firm up.",
         "Top it and finish on the upper rack, about 10 more minutes, until the edges brown."],
@@ -166,4 +180,4 @@ STEPS = {
 }
 
 ULTRA = ("Swap in rapid-rise yeast: 5.4 g for the 1 lb loaf or 7.8 g for the 1½ lb. Run it on Ultra-Fast (1:53 or 2:03) "
-         "and pick up from step III. The beeps come early on this program: add-ins at 13 minutes, paddle at 18.")
+         "and pick up from step III. The timing's different on this program: add-ins go in at 13 minutes, and the paddle comes out at 18.")
