@@ -3,7 +3,7 @@ import json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data import R
 from build import grams, TIMES, render, term_grams
-from steps import STEPS, WARN, ULTRA
+from steps import STEPS, ULTRA
 
 FLOUR = {'ap_flour', 'bread_flour', 'ww_flour', 'rye_flour', 'semolina', 'oat_flour', 'brown_rice_flour',
          'white_rice_flour', 'arrowroot', 'tapioca', 'quinoa_flour', 'gf_blend'}
@@ -40,7 +40,7 @@ def slug(s):
 def recipe(r):
     sizes = r['sizes']
     times, mins, _, _ = TIMES[r['program']]
-    secs, warns = [], []
+    secs = []
     for title, items in r['sections']:
         rows = []
         for label, key, amts, tag, orig in items:
@@ -50,15 +50,16 @@ def recipe(r):
                 _, rest = tag.split(':', 1)
                 cols, msg, ovrs = rest.split('|')
                 ovr = {sizes.index(WARN_COL[c]): v for c, v in zip(cols.split(';'), ovrs.split(';'), strict=True)}
-                w = WARN[r['name']]
-                warns += [x for x in ([w] if isinstance(w, str) else w) if x not in warns]
             for i, a in enumerate(amts):
                 g.append(grams(ovr[i], key) + ' †' if i in ovr else grams(a, key))
             o = [orig] if orig and len(amts) == 1 else amts
             gn = [gnum(ovr.get(i, a), key) for i, a in enumerate(amts)]
             fl = 1 if key in FLOUR else 0.5 if key == 'starter' else 0
-            rows.append({'n': label, 'g': g, 'o': [x or '—' for x in o], 'a': tag == 'addin',
-                         'gn': gn, 'fl': fl, 'top': tag == 'top'})
+            row = {'n': label, 'g': g, 'o': [x or '—' for x in o], 'a': tag == 'addin',
+                   'gn': gn, 'fl': fl, 'top': tag == 'top'}
+            if ovr:  # booklet amount corrected: shown as "printed → used" in the Original section
+                row['c'] = [ovr.get(i) for i in range(len(amts))]
+            rows.append(row)
         secs.append({'t': title, 'i': rows, 'bp': dough_section(title)})
     keys = {it[1] for _, items in r['sections'] for it in items}
     lb = [s for s in sizes if s in ('1 lb', '1½ lb', '2 lb')]
@@ -76,7 +77,7 @@ def recipe(r):
         'id': slug(r['name']), 'n': r['name'], 'p': r['program'], 't': r['typ'],
         'm': r.get('machine_min', mins), 'pg': r['page'], 'y': r.get('yield_'),
         'sz': lb, 'cols': sizes, 'meta': meta, 'uf': bool(r.get('ultrafast')),
-        'sec': secs, 'st': STEPS[r['name']], 'ux': ULTRA if r.get('ultrafast') else None, 'no': r.get('notes', []), 'w': warns,
+        'sec': secs, 'st': STEPS[r['name']], 'ux': ULTRA if r.get('ultrafast') else None, 'no': r.get('notes', []),
         'h': att, 'f': r['flavor'], 'd': render(r, {})['properties']['Dietary'],
     }
 

@@ -76,7 +76,6 @@
       `<tr class="${it.a ? 'add' : ''}"><td>${md(name(it.n))}${it.a ? when : ''}</td><td>${dag(esc(pick(it)))}</td></tr>`).join('');
     const ing = r.sec.map((s, k) => `${s.t ? `<h3>${esc(secTitle(s.t))}</h3>` : ''}
       <table class="ing">${k === 0 ? `<thead><tr><th></th>${head}</tr></thead>` : ''}<tbody>${table(s.i, it => it.g[c.i], short)}</tbody></table>`).join('');
-    const shownWarn = r.sec.some(s => s.i.some(it => (it.g[c.i] || '').includes('†')));
     const pct = v => (v >= 10 ? Math.round(v) : v.toFixed(1)) + '%';
     const merged = new Map();
     const add = (n, fl, g) => { const m = merged.get(n) || { n, fl, g: 0 }; m.g += g; merged.set(n, m); return m; };
@@ -94,13 +93,12 @@
     const bakers = flour ? `<details><summary>Baker's percentage</summary><table><tbody>${bpItems.map(it =>
       `<tr><td>${md(short(it.n))}</td><td>${pct(it.g / flour * 100)}</td></tr>`).join('')}</tbody></table></details>` : '';
     const orig = r.sec.map(s => `${s.t ? `<h3>${esc(s.t)}</h3>` : ''}
-      <table><tbody>${table(s.i, it => it.o[Math.min(c.i, it.o.length - 1)], n => n)}</tbody></table>`).join('');
+      <table><tbody>${table(s.i, it => { const j = Math.min(c.i, it.o.length - 1); return it.c && it.c[j] ? `${it.o[j]} → ${it.c[j]} †` : it.o[j]; }, n => n)}</tbody></table>`).join('');
 
     app.innerHTML = `
       <a class="back" href="#" aria-label="Back"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a>
       <h1>${esc(r.n)}</h1>
       ${ing}
-      ${shownWarn ? r.w.map(w => `<p class="note"><span class="dag">†</span> ${md(w)}</p>`).join('') : ''}
       <ol>${r.st.map(s => `<li>${md(s)}</li>`).join('')}</ol>
       ${r.no.map(n => `<p class="note">${md(n, true)}</p>`).join('')}
       ${r.ux ? `<details><summary>Ultra-Fast</summary><p>${esc(r.ux)}</p></details>` : ''}

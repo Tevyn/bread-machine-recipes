@@ -166,28 +166,5 @@ STEPS = {
         "Bake about 25 minutes, until the cheese melts and the crust is golden and crisp underneath. Top with basil."],
 }
 
-WARN = {
-    "Basic White Bread": "The booklet says 1½ teaspoons of butter for the 1 lb loaf, but the other sizes and similar recipes all point to 1½ tablespoons, so that's what this is. Taken literally it would be 7 g.",
-    "Jalapeño Cheddar Bread": "The booklet says 1 cup of buttermilk for the 1½ lb loaf, but the 2 lb and 1 lb loaves both work out to 71% of the flour, so this uses 1 cup + 2 tablespoons to match. Taken literally it would be 227 g.",
-    "Rustic Italian Loaf": "The booklet says 1 cup of water for the 1½ lb loaf, but the 2 lb and 1 lb loaves both work out to 71% of the flour, so this uses 1 cup + 2 tablespoons to match. Taken literally it would be 227 g.",
-    "Panettone Loaf": [
-        "The booklet says 1¾ teaspoons of nutmeg for the 1 lb loaf, which is more than the bigger loaf gets, so this treats it as ¼ teaspoon. Taken literally it would be 3.9 g.",
-        "The 1 lb loaf gets half the eggs and butter of the 1½ lb but nearly three-quarters of the flour, which makes it much drier. This uses ⅓ cup + 2 tablespoons of milk and 3 tablespoons of butter so it matches the bigger loaf. Taken literally it would be 76 g of milk and 28 g of butter.",
-    ],
-    "French Bread Loaf": [
-        "The booklet says 1 cup + 1 tablespoon of water for the 1 lb loaf, which is 85% of the flour while the other sizes are 71–73%. This uses ¾ cup + 2 tablespoons (70%). Taken literally it would be 241 g.",
-        "The booklet gives the 1½ lb loaf the same 1½ teaspoons of salt as the 2 lb, so this uses 1¼ teaspoons to keep it in step with the flour. Taken literally it would be 8.0 g.",
-    ],
-    "Rye Bread": [
-        "The booklet's flour drops from 5 cups to 3 and then 2, which leaves the smaller loaves at 83% and 99% water. Here they get 3¾ and 2½ cups in the same rye-to-white split, and the 1 lb gets ¾ cup + 1 tablespoon of water, so every size comes out around 65%. Taken literally the 1½ lb would have 342 g of flour, and the 1 lb 230 g of flour with 227 g of water.",
-        "The salt goes up from 1¼ to 1¾ teaspoons for the 2 lb and from 1 to 1¼ teaspoons for the 1½ lb (about 1.6% of the flour), in line with other rye recipes. Taken literally it would be 6.7 g and 5.3 g.",
-    ],
-    "Wheat Bran Bread": "The booklet says 1 cup of water for the 1 lb loaf, which is 88% of the flour while the other sizes are 74–78%. This uses ¾ cup + 2 tablespoons (77%). Taken literally it would be 227 g.",
-    "Chocolate Cherry Loaf": [
-        "The booklet says ⅓ cup of milk for the 1 lb loaf, which leaves it much drier than the 1½ lb. This uses ½ cup. Taken literally it would be 76 g.",
-        "The salt goes up from ¾ and ½ teaspoon to 1 and ¾ teaspoon (about 1.5% of the flour), since the booklet's amounts are lower than every comparable recipe. Taken literally it would be 4.0 g and 2.7 g.",
-    ],
-}
-
 ULTRA = ("Swap in rapid-rise yeast: 5.4 g for the 1 lb loaf or 7.8 g for the 1½ lb. Run it on Ultra-Fast (1:53 or 2:03) "
          "and pick up from step III. The beeps come early on this program: add-ins at 13 minutes, paddle at 18.")
