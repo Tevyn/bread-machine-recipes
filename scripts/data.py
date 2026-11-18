@@ -121,6 +121,22 @@ recipe(name="French Bread Loaf", program="French", page=28, sizes=L3, delay="Yes
        steps=[FIRST, LOAD("French", crust=False), RESHAPE, COOL],
        nutrition="Per 2-oz slice: 73 cal (0% from fat) · carb 13 g · protein 2 g · fat 0 g · sat fat 0 g · chol 0 mg · sodium 159 mg · calcium 1 mg · fiber 0 g")
 
+# Not from the booklet: King Arthur's pro French bread ratios (67% water, 2% salt, 1.1% yeast),
+# poolish folded into one straight dough. page=28.5 just sorts it next to French Bread Loaf.
+recipe(name="King Arthur-Style French Bread", program="French", page=28.5, sizes=L3, delay="Yes", ultrafast=False,
+       typ="Bread loaf", flavor="Plain", keyings=[], attention=[],
+       source="Adapted from King Arthur Baking's French Bread with Poolish pro formula (kingarthurbaking.com/pro/formulas/french-bread-with-poolish), mixed as a straight dough.",
+       sections=[(None, [
+           I("Water, room temperature", "water", ["1⅓ cups + 1½ tablespoons", "1 cup + 2½ tablespoons", "¾ cup + 1½ tablespoons"]),
+           I("Kosher salt", "salt", ["1¾ teaspoons", "1½ teaspoons", "1 teaspoon"]),
+           I("Bread flour", "bread_flour", ["4 cups", "3¼ cups", "2¼ cups + 2 tablespoons"]),
+           I("Yeast (active dry, instant or bread machine)", "yeast", ["1¾ teaspoons", "1¼ teaspoons + ⅛ teaspoon", "1 teaspoon"]),
+       ])],
+       steps=[FIRST, LOAD("French", crust=False), RESHAPE,
+              "When it finishes, turn the loaf out right away so steam doesn't soften the crust, and let it cool completely on a wire rack before slicing."],
+       notes=["Adapted from King Arthur's professional French bread formula: 67% water, 2% salt and 1.1% yeast by flour weight. Their version builds an overnight poolish; here that flour and water simply go into one dough."],
+       nutrition="Estimated per 2-oz slice: 137 cal (4% from fat) · carb 27 g · protein 5 g · fat 1 g · sat fat 0 g · chol 0 mg · sodium 300 mg · calcium 6 mg · fiber 1 g")
+
 recipe(name="Rustic Italian Loaf", program="French", page=29, sizes=L3, delay="Yes", ultrafast=True,
        typ="Bread loaf", flavor="Savory", keyings=["Whole grain", "Seeds"], attention=[],
        sections=[(None, [

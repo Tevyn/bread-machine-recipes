@@ -128,7 +128,7 @@ TIMES = {
 }
 ICON = {
     'Basic White Bread': '🍞', 'Oatmeal Bread': '🥣', 'Cinnamon Swirl Bread': '🌀', 'Rye Bread': '🍞',
-    'Jalapeño Cheddar Bread': '🌶️', 'French Bread Loaf': '🥖', 'Rustic Italian Loaf': '🥖',
+    'Jalapeño Cheddar Bread': '🌶️', 'French Bread Loaf': '🥖', 'King Arthur-Style French Bread': '🥖', 'Rustic Italian Loaf': '🥖',
     'Country French Bread with Olives & Rosemary': '🫒', 'Parmesan Peppercorn French Bread': '🧀',
     'Semolina Bread with Fennel & Golden Raisins': '🌾', 'Basic Whole Wheat Bread': '🌾',
     'Multigrain Cereal Wheat Bread': '🌾', 'Nutty Whole Wheat Bread': '🥜', 'Wheat Bran Bread': '🌾',
@@ -257,7 +257,7 @@ def render(r, urls):
     # ----- original drawer -----
     out.append("---")
     out.append("")
-    dr = ["<toggle>📏 Original measurements (cups & spoons, as printed in the booklet)", ""]
+    dr = ["<toggle>📏 Original measurements (cups & spoons" + ("" if r.get('source') else ", as printed in the booklet") + ")", ""]
     for title, items in r['sections']:
         if title:
             dr.append(f"**{esc(title)}**")
@@ -278,7 +278,7 @@ def render(r, urls):
         dr.append(r['orig_extra']); dr.append("")
     dr.append(f"Nutrition: {r['nutrition']}")
     dr.append("")
-    dr.append(f"Source: Cuisinart CBK-110 Instruction & Recipe Booklet, p. {r['page']}.")
+    dr.append(f"Source: {r['source']}" if r.get('source') else f"Source: Cuisinart CBK-110 Instruction & Recipe Booklet, p. {r['page']}.")
     dr.append("</toggle>")
     out.append("\n".join(dr))
     content = "\n".join(out)
@@ -302,7 +302,7 @@ def render(r, urls):
         'Flavor': r['flavor'],
         'Key ingredients': r['keyings'],
         'Dietary': diet,
-        'Booklet page': r['page'],
+        'Booklet page': None if r.get('source') else r['page'],
     }
     mins = r.get('machine_min', mins)
     if mins: props['Machine time (min)'] = mins
