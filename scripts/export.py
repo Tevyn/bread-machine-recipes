@@ -3,7 +3,7 @@ import json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data import R
 from build import grams, TIMES, render, term_grams
-from steps import STEPS, ULTRA
+from steps import STEPS, ULTRA, BEEPS
 
 FLOUR = {'ap_flour', 'bread_flour', 'ww_flour', 'rye_flour', 'semolina', 'oat_flour', 'brown_rice_flour',
          'white_rice_flour', 'arrowroot', 'tapioca', 'quinoa_flour', 'gf_blend'}
@@ -28,11 +28,6 @@ def dough_section(title):
     return not title or not any(w in head for w in NOT_DOUGH)
 
 WARN_COL = {'1lb': '1 lb', '1.5lb': '1½ lb', '2lb': '2 lb'}
-
-BEEPS = {  # elapsed h:mm
-    'White': ('0:40', '1:15'), 'French': ('1:15', '1:55'), 'Whole Wheat': ('0:50', '1:35'),
-    'Sweet': ('0:30', '1:10'), 'Gluten Free': ('0:20', '0:35'),
-}
 
 def slug(s):
     return re.sub(r'[^a-z0-9]+', '-', s.lower().replace('ñ', 'n')).strip('-')
