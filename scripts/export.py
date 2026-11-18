@@ -2,7 +2,27 @@
 import json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data import R
-from build import grams, TIMES, render
+from build import grams, TIMES, render, term_grams
+
+FLOUR = {'ap_flour', 'bread_flour', 'ww_flour', 'rye_flour', 'semolina', 'oat_flour', 'brown_rice_flour',
+         'white_rice_flour', 'arrowroot', 'tapioca', 'quinoa_flour', 'gf_blend'}
+NOT_DOUGH = ('swirl', 'filling', 'glaze', 'topping', 'frosting', 'rolled in', 'seasoning', 'shaping', 'dip',
+             'assembly', 'pan', 'daily feed', 'refresh', 'seasoned')
+
+def gnum(amt, key):
+    a = amt.strip()
+    if not a or key == 'none' or 'pinch' in a.lower() or ' to ' in a:
+        return None
+    tot = 0.0
+    for p in re.split(r'\s*(?:\+|plus)\s*', a):
+        g = term_grams(p, key)
+        if g is None:
+            return None
+        tot += g
+    return round(tot, 2)
+
+def dough_section(title):
+    return not title or not any(w in title.lower() for w in NOT_DOUGH)
 
 BEEPS = {  # elapsed h:mm
     'White': ('0:40', '1:15'), 'French': ('1:15', '1:55'), 'Whole Wheat': ('0:50', '1:35'),
@@ -27,8 +47,11 @@ def recipe(r):
             for i, a in enumerate(amts):
                 g.append(grams(ovr, key) + ' ⚠️' if i == wi else grams(a, key))
             o = [orig] if orig and len(amts) == 1 else amts
-            rows.append({'n': label, 'g': g, 'o': [x or '—' for x in o], 'a': tag == 'addin'})
-        secs.append({'t': title, 'i': rows})
+            gn = [gnum(ovr if i == wi else a, key) for i, a in enumerate(amts)]
+            fl = 1 if key in FLOUR else 0.5 if key == 'starter' else 0
+            rows.append({'n': label, 'g': g, 'o': [x or '—' for x in o], 'a': tag == 'addin',
+                         'gn': gn, 'fl': fl, 'top': tag == 'top'})
+        secs.append({'t': title, 'i': rows, 'bp': dough_section(title)})
     keys = {it[1] for _, items in r['sections'] for it in items}
     lb = [s for s in sizes if s in ('1 lb', '1½ lb', '2 lb')]
     att = r['attention']

@@ -1,9 +1,6 @@
 :root {
   --bg: #fbfaf7; --fg: #1d1b18; --mute: #7a746b; --line: #e7e2d9; --hi: #f1ece2; --accent: #b4561f;
 }
-@media (prefers-color-scheme: dark) {
-  :root { --bg: #151413; --fg: #ece8e1; --mute: #8f897f; --line: #2b2926; --hi: #23211e; --accent: #e08a4f; }
-}
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
@@ -28,7 +25,7 @@ th[data-k][aria-sort="ascending"]::after { content: " ▴"; }
 .mute { color: var(--mute); }
 
 /* recipe */
-.back { display: inline-block; font-size: 24px; padding: 2px 8px 2px 0; }
+.back { display: inline-flex; padding: 8px 12px 8px 0; margin-left: -4px; }
 h1 { font-size: 24px; line-height: 1.2; margin: 6px 0 4px; }
 .meta { color: var(--mute); margin: 0 0 16px; }
 h3 { font-size: 14px; font-weight: 600; color: var(--mute); margin: 20px 0 0; }

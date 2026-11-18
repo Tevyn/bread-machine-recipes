@@ -83,11 +83,25 @@
     const ing = r.sec.map((s, k) => `${s.t ? `<h3>${esc(secTitle(s.t))}</h3>` : ''}
       <table class="ing">${k === 0 ? `<thead><tr><th></th>${head}</tr></thead>` : ''}<tbody>${table(s.i, it => it.g[c.i], short)}</tbody></table>`).join('');
     const shownWarn = r.sec.some(s => s.i.some(it => (it.g[c.i] || '').includes('⚠️')));
+    const pct = v => (v >= 10 ? Math.round(v) : v.toFixed(1)) + '%';
+    const merged = new Map();
+    r.sec.filter(s => s.bp).flatMap(s => s.i).filter(it => !it.top).forEach(it => {
+      const g = it.gn[Math.min(c.i, it.gn.length - 1)];
+      if (g == null) return;
+      const n = short(it.n).replace(/, cool$/, '').replace(/\*+$/, '');
+      const m = merged.get(n) || { n, fl: it.fl === 1 ? 1 : 0, g: 0 };
+      m.g += g; merged.set(n, m);
+      if (it.fl === 0.5) merged.set('Flour in starter', { n: 'Flour in starter', fl: 1, g: g / 2 });
+    });
+    const bpItems = [...merged.values()].sort((a, b) => (b.fl === 1) - (a.fl === 1) || b.g - a.g);
+    const flour = bpItems.reduce((a, it) => a + it.fl * it.g, 0);
+    const bakers = flour ? `<details><summary>Baker's %</summary><table><tbody>${bpItems.map(it =>
+      `<tr><td>${md(short(it.n))}</td><td>${pct(it.g / flour * 100)}</td></tr>`).join('')}</tbody></table></details>` : '';
     const orig = r.sec.map(s => `${s.t ? `<h3>${esc(s.t)}</h3>` : ''}
       <table><tbody>${table(s.i, it => it.o[Math.min(c.i, it.o.length - 1)], n => n)}</tbody></table>`).join('');
 
     app.innerHTML = `
-      <a class="back" href="#" aria-label="Back">←</a>
+      <a class="back" href="#" aria-label="Back"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a>
       <h1>${esc(r.n)}</h1>
       <p class="meta">${meta.map(esc).join(' · ')}</p>
       ${ing}
@@ -95,6 +109,7 @@
       <ol>${r.st.map(s => `<li>${md(s)}</li>`).join('')}</ol>
       ${r.no.map(n => `<p class="note">${md(n, true)}</p>`).join('')}
       ${r.uf ? `<details><summary>Ultra-Fast</summary><p>Rapid-rise yeast: <b>5.4 g</b> (1 lb) · <b>7.8 g</b> (1½ lb). Program Ultra-Fast (1:53 / 2:03), then step 3 on. Add-ins 0:13 · paddle 0:18.</p></details>` : ''}
+      ${bakers}
       <details><summary>Original</summary>${orig}</details>`;
     const btn = app.querySelector('button.size');
     if (btn) btn.onclick = () => {
