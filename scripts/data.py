@@ -1,6 +1,6 @@
 # Cuisinart CBK-110 recipe booklet, transcribed. Amount strings are as printed.
 # item: (label, density_key, [amounts per size], tag, original_line_override)
-# tag: "" normal | "addin" (hold back, add at add-in beep) | "warn:<col>|<msg>|<gram override>" (col: 1lb, 1.5lb, 2lb)
+# tag: "" normal | "addin" (hold back, add at add-in beep) | "warn:<col>[;<col>]|<msg>|<override>[;<override>]" (col: 1lb, 1.5lb, 2lb; msg may be empty on extra rows)
 
 L3 = ["2 lb", "1½ lb", "1 lb"]
 L2 = ["1½ lb", "1 lb"]
@@ -82,10 +82,10 @@ recipe(name="Cinnamon Swirl Bread", program="White", page=23, sizes=L3, delay="N
 recipe(name="Rye Bread", program="White", page=25, sizes=L3, delay="Yes", ultrafast=True,
        typ="Bread loaf", flavor="Savory", keyings=["Whole grain", "Seeds"], attention=[],
        sections=[(None, [
-           I("Water, room temperature", "water", ["1⅔ cups", "1¼ cups", "1 cup"]),
-           I("Kosher salt", "salt", ["1¼ teaspoons", "1 teaspoon", "¾ teaspoon"]),
-           I("Unbleached all-purpose flour", "ap_flour", ["3 cups", "1¾ cups", "1¼ cups"]),
-           I("Rye flour", "rye_flour", ["2 cups", "1¼ cups", "¾ cup"]),
+           I("Water, room temperature", "water", ["1⅔ cups", "1¼ cups", "1 cup"], tag="warn:1lb|Booklet flour drops 5 → 3 → 2 cups, leaving the smaller loaves at 83% and 99% water. The 1½ lb uses 2¼ cups AP + 1½ cups rye, and the 1 lb uses 1½ cups AP + 1 cup rye with ¾ cup + 1 tbsp water, so every size is about 65%. Salt goes from 1¼ to 1¾ tsp (2 lb) and 1 to 1¼ tsp (1½ lb), about 1.6%.|¾ cup + 1 tablespoon"),
+           I("Kosher salt", "salt", ["1¼ teaspoons", "1 teaspoon", "¾ teaspoon"], tag="warn:2lb;1.5lb||1¾ teaspoons;1¼ teaspoons"),
+           I("Unbleached all-purpose flour", "ap_flour", ["3 cups", "1¾ cups", "1¼ cups"], tag="warn:1.5lb;1lb||2¼ cups;1½ cups"),
+           I("Rye flour", "rye_flour", ["2 cups", "1¼ cups", "¾ cup"], tag="warn:1.5lb;1lb||1½ cups;1 cup"),
            I("Caraway seeds (optional)", "caraway", ["1 tablespoon", "2 teaspoons", "1½ teaspoons"]),
            I("Yeast (active dry, instant or bread machine)", "yeast", ["1 tablespoon", "2 teaspoons", "1½ teaspoons"]),
        ])],
@@ -114,8 +114,8 @@ recipe(name="Jalapeño Cheddar Bread", program="White", page=26, sizes=L3, delay
 recipe(name="French Bread Loaf", program="French", page=28, sizes=L3, delay="Yes", ultrafast=True,
        typ="Bread loaf", flavor="Plain", keyings=[], attention=[],
        sections=[(None, [
-           I("Water, room temperature", "water", ["1½ cups", "1¼ cups", "1 cup + 1 tablespoon"]),
-           I("Kosher salt", "salt", ["1½ teaspoons", "1½ teaspoons", "¾ teaspoon"]),
+           I("Water, room temperature", "water", ["1½ cups", "1¼ cups", "1 cup + 1 tablespoon"], tag="warn:1lb|Booklet prints 1 cup + 1 tbsp water for the 1 lb loaf, 85% of the flour vs 71–73% for the other sizes. The gram figure uses ¾ cup + 2 tbsp (70%). As printed it would be 241 g.|¾ cup + 2 tablespoons"),
+           I("Kosher salt", "salt", ["1½ teaspoons", "1½ teaspoons", "¾ teaspoon"], tag="warn:1.5lb|Booklet prints the same 1½ tsp salt for the 1½ lb and 2 lb loaves. The gram figure uses 1¼ tsp so salt scales with flour. As printed it would be 8.0 g.|1¼ teaspoons"),
            I("Unbleached all-purpose flour", "ap_flour", ["4 cups", "3¼ cups", "2¼ cups + 2 tablespoons"]),
            I("Yeast (active dry, instant or bread machine)", "yeast", ["1½ teaspoons", "1¼ teaspoons", "1 teaspoon"]),
        ])],
@@ -258,7 +258,7 @@ recipe(name="Nutty Whole Wheat Bread", program="Whole Wheat", page=36, sizes=L3,
 recipe(name="Wheat Bran Bread", program="Whole Wheat", page=37, sizes=L3, delay="Yes", ultrafast=True,
        typ="Bread loaf", flavor="Plain", keyings=["Whole grain"], attention=[],
        sections=[(None, [
-           I("Water, room temperature", "water", ["1½ cups", "1 cup + 2 tablespoons", "1 cup"]),
+           I("Water, room temperature", "water", ["1½ cups", "1 cup + 2 tablespoons", "1 cup"], tag="warn:1lb|Booklet prints 1 cup water for the 1 lb loaf, 88% of the flour vs 74–78% for the other sizes. The gram figure uses ¾ cup + 2 tbsp (77%). As printed it would be 227 g.|¾ cup + 2 tablespoons"),
            I("Kosher salt", "salt", ["1¼ teaspoons", "1 teaspoon", "¾ teaspoon"]),
            I("Unsalted butter, room temperature, cut into ½-inch pieces", "butter", ["1½ tablespoons", "1 tablespoon", "1 tablespoon"]),
            I("Molasses", "molasses", ["2 tablespoons", "1½ tablespoons", "1 tablespoon"]),
@@ -304,8 +304,8 @@ recipe(name="Brioche Loaf", program="Sweet", page=39, sizes=L2, delay="No", ultr
 recipe(name="Panettone Loaf", program="Sweet", page=40, sizes=L2, delay="No", ultrafast=True,
        typ="Bread loaf", flavor="Sweet", keyings=["Fruit", "Spice"], attention=["Add-ins at beep"],
        sections=[(None, [
-           I("Whole milk, room temperature", "milk", ["½ cup", "⅓ cup"]),
-           I("Unsalted butter, room temperature, cut into ½-inch pieces", "butter", ["4 tablespoons", "2 tablespoons"]),
+           I("Whole milk, room temperature", "milk", ["½ cup", "⅓ cup"], tag="warn:1lb|The 1 lb loaf gets half the eggs and butter of the 1½ lb but 73% of the flour, so it is much drier (52% liquid vs 65%). The gram figures use ⅓ cup + 2 tbsp milk and 3 tbsp butter to match. As printed: 76 g milk, 28 g butter.|⅓ cup + 2 tablespoons"),
+           I("Unsalted butter, room temperature, cut into ½-inch pieces", "butter", ["4 tablespoons", "2 tablespoons"], tag="warn:1lb||3 tablespoons"),
            I("Large eggs, room temperature", "egg", ["2 eggs", "1 egg"]),
            I("Kosher salt", "salt", ["¾ teaspoon", "½ teaspoon"]),
            I("Granulated sugar", "sugar", ["¼ cup", "3 tablespoons"]),
@@ -324,10 +324,10 @@ recipe(name="Panettone Loaf", program="Sweet", page=40, sizes=L2, delay="No", ul
 recipe(name="Chocolate Cherry Loaf", program="Sweet", page=42, sizes=L2, delay="No", ultrafast=True,
        typ="Bread loaf", flavor="Sweet", keyings=["Chocolate", "Fruit"], attention=["Fill & roll at paddle beep"],
        sections=[("Dough (goes in the pan)", [
-           I("Whole milk, room temperature", "milk", ["½ cup", "⅓ cup"]),
+           I("Whole milk, room temperature", "milk", ["½ cup", "⅓ cup"], tag="warn:1lb|Booklet prints ⅓ cup milk for the 1 lb loaf, leaving it at 47% liquid vs 59% for the 1½ lb. The gram figure uses ½ cup. Salt is raised to 1 tsp / ¾ tsp (about 1.5%), since the printed amounts are below every comparable recipe. As printed: 76 g milk; salt 4.0 g / 2.7 g.|½ cup"),
            I("Unsalted butter, room temperature, cut into ½-inch pieces", "butter", ["¼ cup", "2 tablespoons"]),
            I("Large eggs, room temperature", "egg", ["2 eggs", "1 egg"]),
-           I("Kosher salt", "salt", ["¾ teaspoon", "½ teaspoon"]),
+           I("Kosher salt", "salt", ["¾ teaspoon", "½ teaspoon"], tag="warn:1.5lb;1lb||1 teaspoon;¾ teaspoon"),
            I("Granulated sugar", "sugar", ["3 tablespoons", "2 tablespoons"]),
            I("Unbleached all-purpose flour", "ap_flour", ["3 cups", "2¼ cups"]),
            I("Yeast (active dry, instant or bread machine)", "yeast", ["1¾ teaspoons", "1½ teaspoons"]),

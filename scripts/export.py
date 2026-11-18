@@ -44,15 +44,18 @@ def recipe(r):
     for title, items in r['sections']:
         rows = []
         for label, key, amts, tag, orig in items:
-            g, wi = [], None
+            g, ovr = [], {}
             if tag.startswith('warn:'):
+                # warn:<col>[;<col>...]|<msg>|<override>[;<override>...]
                 _, rest = tag.split(':', 1)
-                col, msg, ovr = rest.split('|')
-                wi = sizes.index(WARN_COL[col]); warns.append(WARN[r['name']])
+                cols, msg, ovrs = rest.split('|')
+                ovr = {sizes.index(WARN_COL[c]): v for c, v in zip(cols.split(';'), ovrs.split(';'), strict=True)}
+                w = WARN[r['name']]
+                warns += [x for x in ([w] if isinstance(w, str) else w) if x not in warns]
             for i, a in enumerate(amts):
-                g.append(grams(ovr, key) + ' †' if i == wi else grams(a, key))
+                g.append(grams(ovr[i], key) + ' †' if i in ovr else grams(a, key))
             o = [orig] if orig and len(amts) == 1 else amts
-            gn = [gnum(ovr if i == wi else a, key) for i, a in enumerate(amts)]
+            gn = [gnum(ovr.get(i, a), key) for i, a in enumerate(amts)]
             fl = 1 if key in FLOUR else 0.5 if key == 'starter' else 0
             rows.append({'n': label, 'g': g, 'o': [x or '—' for x in o], 'a': tag == 'addin',
                          'gn': gn, 'fl': fl, 'top': tag == 'top'})
