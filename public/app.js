@@ -16,10 +16,11 @@
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const md = (s, foot) => {
     const m = foot && /^(\*+)/.exec(s); const pre = m ? m[1] : ''; let t = esc(s.slice(pre.length));
-    t = t.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\*(.+?)\*/g, '<i>$1</i>');
+    t = t.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '<i>$1</i>');
     return pre + t;
   };
 
+  const dag = h => h.replace(' †', '<span class="dag">†</span>');
   const short = n => n
     .replace(/,? room temperature/g, '').replace(/, cut into ½-inch pieces/, '').replace(/,? (and )?cubed/, '')
     .replace(/ \(active dry, instant or bread machine\)/, '').replace(/^Unbleached all-purpose/, 'All-purpose')
@@ -72,10 +73,10 @@
       ? `<th><button class="size${c.off ? ' off' : ''}">${esc(c.label)}</button></th>`
       : `<th>${esc(c.label)}</th>`;
     const table = (rows, pick, name) => rows.map(it =>
-      `<tr class="${it.a ? 'add' : ''}"><td>${md(name(it.n))}${it.a ? when : ''}</td><td>${esc(pick(it))}</td></tr>`).join('');
+      `<tr class="${it.a ? 'add' : ''}"><td>${md(name(it.n))}${it.a ? when : ''}</td><td>${dag(esc(pick(it)))}</td></tr>`).join('');
     const ing = r.sec.map((s, k) => `${s.t ? `<h3>${esc(secTitle(s.t))}</h3>` : ''}
       <table class="ing">${k === 0 ? `<thead><tr><th></th>${head}</tr></thead>` : ''}<tbody>${table(s.i, it => it.g[c.i], short)}</tbody></table>`).join('');
-    const shownWarn = r.sec.some(s => s.i.some(it => (it.g[c.i] || '').includes('⚠️')));
+    const shownWarn = r.sec.some(s => s.i.some(it => (it.g[c.i] || '').includes('†')));
     const pct = v => (v >= 10 ? Math.round(v) : v.toFixed(1)) + '%';
     const merged = new Map();
     r.sec.filter(s => s.bp).flatMap(s => s.i).filter(it => !it.top).forEach(it => {
@@ -88,7 +89,7 @@
     });
     const bpItems = [...merged.values()].sort((a, b) => (b.fl === 1) - (a.fl === 1) || b.g - a.g);
     const flour = bpItems.reduce((a, it) => a + it.fl * it.g, 0);
-    const bakers = flour ? `<details><summary>Baker's %</summary><table><tbody>${bpItems.map(it =>
+    const bakers = flour ? `<details><summary>Baker's percentage</summary><table><tbody>${bpItems.map(it =>
       `<tr><td>${md(short(it.n))}</td><td>${pct(it.g / flour * 100)}</td></tr>`).join('')}</tbody></table></details>` : '';
     const orig = r.sec.map(s => `${s.t ? `<h3>${esc(s.t)}</h3>` : ''}
       <table><tbody>${table(s.i, it => it.o[Math.min(c.i, it.o.length - 1)], n => n)}</tbody></table>`).join('');
@@ -97,10 +98,10 @@
       <a class="back" href="#" aria-label="Back"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a>
       <h1>${esc(r.n)}</h1>
       ${ing}
-      ${shownWarn ? r.w.map(w => `<p class="note">⚠️ ${md(w)}</p>`).join('') : ''}
+      ${shownWarn ? r.w.map(w => `<p class="note"><span class="dag">†</span> ${md(w)}</p>`).join('') : ''}
       <ol>${r.st.map(s => `<li>${md(s)}</li>`).join('')}</ol>
       ${r.no.map(n => `<p class="note">${md(n, true)}</p>`).join('')}
-      ${r.uf ? `<details><summary>Ultra-Fast</summary><p>Rapid-rise yeast: <b>5.4 g</b> (1 lb) · <b>7.8 g</b> (1½ lb). Program Ultra-Fast (1:53 / 2:03), then step 3 on. Add-ins 0:13 · paddle 0:18.</p></details>` : ''}
+      ${r.ux ? `<details><summary>Ultra-Fast</summary><p>${esc(r.ux)}</p></details>` : ''}
       ${bakers}
       <details><summary>Original</summary>${orig}</details>`;
     const btn = app.querySelector('button.size');

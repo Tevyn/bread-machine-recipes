@@ -3,6 +3,7 @@ import json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data import R
 from build import grams, TIMES, render, term_grams
+from steps import STEPS, WARN, ULTRA
 
 FLOUR = {'ap_flour', 'bread_flour', 'ww_flour', 'rye_flour', 'semolina', 'oat_flour', 'brown_rice_flour',
          'white_rice_flour', 'arrowroot', 'tapioca', 'quinoa_flour', 'gf_blend'}
@@ -43,9 +44,9 @@ def recipe(r):
             if tag.startswith('warn:'):
                 _, rest = tag.split(':', 1)
                 col, msg, ovr = rest.split('|')
-                wi = sizes.index('1 lb'); warns.append(msg)
+                wi = sizes.index('1 lb'); warns.append(WARN[r['name']])
             for i, a in enumerate(amts):
-                g.append(grams(ovr, key) + ' ⚠️' if i == wi else grams(a, key))
+                g.append(grams(ovr, key) + ' †' if i == wi else grams(a, key))
             o = [orig] if orig and len(amts) == 1 else amts
             gn = [gnum(ovr if i == wi else a, key) for i, a in enumerate(amts)]
             fl = 1 if key in FLOUR else 0.5 if key == 'starter' else 0
@@ -68,7 +69,7 @@ def recipe(r):
         'id': slug(r['name']), 'n': r['name'], 'p': r['program'], 't': r['typ'],
         'm': r.get('machine_min', mins), 'pg': r['page'], 'y': r.get('yield_'),
         'sz': lb, 'cols': sizes, 'meta': meta, 'uf': bool(r.get('ultrafast')),
-        'sec': secs, 'st': r['steps'], 'no': r.get('notes', []), 'w': warns,
+        'sec': secs, 'st': STEPS[r['name']], 'ux': ULTRA if r.get('ultrafast') else None, 'no': r.get('notes', []), 'w': warns,
         'h': att, 'f': r['flavor'], 'd': render(r, {})['properties']['Dietary'],
     }
 
