@@ -8,8 +8,8 @@
   const st = {
     size: store.get('size', '1½ lb'),
     sort: store.get('sort', { k: 'pg', dir: 1 }),
-    f: store.get('f', { p: '', t: '', d: '' }),
   };
+  if (!['n', 'p', 'pg'].includes(st.sort.k)) st.sort = { k: 'pg', dir: 1 };
   let R = [];
   let lock = null;
 
@@ -41,46 +41,25 @@
     return t[st.size] || t['*'] || Object.values(t)[0] || '';
   }
 
-  const hm = r => {
-    if (!r.m) return '—';
-    const t = time(r);
-    return /^\d+:\d\d$/.test(t) ? t : `${Math.floor(r.m / 60)}:${String(r.m % 60).padStart(2, '0')}`;
-  };
-
   // ---------- list ----------
   function home() {
     release();
     document.title = 'Bread';
-    const opts = (k, label, vals) =>
-      `<select data-f="${k}"><option value="">${label}</option>${vals.map(v =>
-        `<option${st.f[k] === v ? ' selected' : ''}>${esc(v)}</option>`).join('')}</select>`;
-    const uniq = a => [...new Set(a)];
-    const progs = uniq(R.map(r => r.p));
-    const types = uniq(R.map(r => r.t));
-    const diets = ['Gluten-free', 'Egg-free', 'Dairy-free', 'Vegan'];
-
-    const rows = R.filter(r =>
-      (!st.f.p || r.p === st.f.p) && (!st.f.t || r.t === st.f.t) && (!st.f.d || r.d.includes(st.f.d)))
-      .sort((a, b) => {
-        const k = st.sort.k; let x = a[k], y = b[k];
-        if (k === 'm') { x = x ?? 1e9; y = y ?? 1e9; }
-        return (x < y ? -1 : x > y ? 1 : a.pg - b.pg) * st.sort.dir;
-      });
-
-    const th = (k, label, cls = '') => {
+    const rows = [...R].sort((a, b) => {
+      const k = st.sort.k, x = a[k], y = b[k];
+      return (x < y ? -1 : x > y ? 1 : a.pg - b.pg) * st.sort.dir;
+    });
+    const th = (k, label) => {
       const s = st.sort.k === k ? ` aria-sort="${st.sort.dir > 0 ? 'ascending' : 'descending'}"` : '';
-      return `<th data-k="${k}" class="${cls}"${s}>${label}</th>`;
+      return `<th data-k="${k}"${s}>${label}</th>`;
     };
     app.innerHTML = `
-      <div class="bar">${opts('p', 'Program', progs)}${opts('t', 'Type', types)}${opts('d', 'Diet', diets)}</div>
       <table class="list">
-        <thead><tr>${th('n', 'Recipe')}${th('p', 'Program')}${th('m', 'Time', 'num')}</tr></thead>
+        <thead><tr>${th('n', 'Recipe')}${th('p', 'Program')}</tr></thead>
         <tbody>${rows.map(r => `<tr data-id="${r.id}">
-          <td>${esc(r.n)}</td><td class="mute">${esc(r.p)}</td>
-          <td class="num mute">${hm(r)}</td></tr>`).join('')}</tbody>
+          <td>${esc(r.n)}</td><td class="mute">${esc(r.p)}</td></tr>`).join('')}</tbody>
       </table>`;
 
-    app.querySelectorAll('[data-f]').forEach(s => s.onchange = () => { st.f[s.dataset.f] = s.value; store.set('f', st.f); home(); });
     app.querySelectorAll('th[data-k]').forEach(h => h.onclick = () => {
       const k = h.dataset.k;
       st.sort = { k, dir: st.sort.k === k ? -st.sort.dir : 1 }; store.set('sort', st.sort); home();
