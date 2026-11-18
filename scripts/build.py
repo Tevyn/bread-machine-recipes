@@ -213,15 +213,17 @@ def render(r, urls):
             out.append("|---|---|")
         for label, key, amts, tag, orig in items:
             cells = []
-            wcol = None; woverride = None
+            wov = {}
             if tag.startswith('warn:'):
                 _, rest = tag.split(':', 1)
-                col, msg, ovr = rest.split('|')
-                wcol = sizes.index({'1lb': '1 lb', '1.5lb': '1½ lb', '2lb': '2 lb'}[col]); woverride = ovr
-                warns.append(msg)
+                cols, msg, ovrs = rest.split('|')
+                colmap = {'1lb': '1 lb', '1.5lb': '1½ lb', '2lb': '2 lb'}
+                wov = {sizes.index(colmap[c]): v for c, v in zip(cols.split(';'), ovrs.split(';'), strict=True)}
+                if msg:
+                    warns.append(msg)
             for i, a in enumerate(amts):
-                if i == wcol:
-                    cells.append(grams(woverride, key) + " ⚠️")
+                if i in wov:
+                    cells.append(grams(wov[i], key) + " ⚠️")
                 else:
                     cells.append(grams(a, key))
             lab = esc(label)

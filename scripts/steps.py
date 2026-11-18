@@ -36,8 +36,7 @@ STEPS = {
     "Rye Bread": [first(), go("White"), RESHAPE, COOL],
     "Jalapeño Cheddar Bread": [first("jalapeño and cheddar"), go("White"), addin("jalapeño and cheddar"), RESHAPE, COOL],
     "French Bread Loaf": [first(), go("French", False), RESHAPE, COOL],
-    "King Arthur-Style French Bread": [first(), go("French", False), RESHAPE,
-        "Get it out of the machine as soon as it's done so steam doesn't soften the crust, then let it cool completely on a rack before slicing."],
+    "King Arthur-Style French Bread": [first(), go("French", False), RESHAPE, COOL],
     "Rustic Italian Loaf": [first("sesame seeds"), go("French", False),
         "At the paddle beep you can pull the paddle, reshape, and sprinkle the sesame seeds on top.", COOL],
     "Country French Bread with Olives & Rosemary": [first("olives"), go("French", False), addin("olives"), RESHAPE, COOL],
@@ -164,13 +163,6 @@ STEPS = {
         "Meanwhile, make the sauce: heat 2 tablespoons of the oil (about 25 g) with the basil, oregano, and red pepper. Add the drained tomatoes, crush them with a wooden spoon, and simmer 20 to 30 minutes until it's a bit thicker. Stir in the salt off the heat.",
         "Spread the sauce over the dough, leaving an inch around the edge. Lay the mozzarella out in three rows of three and brush the edges with the rest of the oil.",
         "Bake about 25 minutes, until the cheese melts and the crust is golden and crisp underneath. Top with basil."],
-}
-
-WARN = {
-    "Basic White Bread": "The booklet says 1½ teaspoons of butter for the 1 lb loaf, but the other sizes and similar recipes all point to 1½ tablespoons, so that's what this is. Taken literally it would be 7 g.",
-    "Jalapeño Cheddar Bread": "The booklet says 1 cup of buttermilk for the 1½ lb loaf, but the 2 lb and 1 lb loaves both work out to 71% of the flour, so this uses 1 cup + 2 tablespoons to match. Taken literally it would be 227 g.",
-    "Rustic Italian Loaf": "The booklet says 1 cup of water for the 1½ lb loaf, but the 2 lb and 1 lb loaves both work out to 71% of the flour, so this uses 1 cup + 2 tablespoons to match. Taken literally it would be 227 g.",
-    "Panettone Loaf": "The booklet says 1¾ teaspoons of nutmeg for the 1 lb loaf, which is more than the bigger loaf gets, so this treats it as ¼ teaspoon. Taken literally it would be 3.9 g.",
 }
 
 ULTRA = ("Swap in rapid-rise yeast: 5.4 g for the 1 lb loaf or 7.8 g for the 1½ lb. Run it on Ultra-Fast (1:53 or 2:03) "
