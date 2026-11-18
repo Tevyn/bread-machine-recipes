@@ -79,14 +79,16 @@
     const shownWarn = r.sec.some(s => s.i.some(it => (it.g[c.i] || '').includes('†')));
     const pct = v => (v >= 10 ? Math.round(v) : v.toFixed(1)) + '%';
     const merged = new Map();
+    const add = (n, fl, g) => { const m = merged.get(n) || { n, fl, g: 0 }; m.g += g; merged.set(n, m); return m; };
     r.sec.filter(s => s.bp).flatMap(s => s.i).filter(it => !it.top).forEach(it => {
       const g = it.gn[Math.min(c.i, it.gn.length - 1)];
       if (g == null) return;
-      const n = short(it.n).replace(/, cool$/, '').replace(/\*+$/, '');
-      const m = merged.get(n) || { n, fl: it.fl === 1 ? 1 : 0, g: 0 };
-      m.g += g; merged.set(n, m);
-      if (it.fl === 0.5) merged.set('Flour in starter', { n: 'Flour in starter', fl: 1, g: g / 2 });
+      // A 100%-hydration starter is half flour, half water: split it rather than listing it whole.
+      if (it.fl === 0.5) { add('Flour in starter', 1, g / 2); add('Water', 0, g / 2).starter = true; return; }
+      add(short(it.n).replace(/, cool$/, '').replace(/\*+$/, ''), it.fl === 1 ? 1 : 0, g);
     });
+    const w = merged.get('Water');
+    if (w && w.starter) w.n = 'Water (incl. starter)';
     const bpItems = [...merged.values()].sort((a, b) => (b.fl === 1) - (a.fl === 1) || b.g - a.g);
     const flour = bpItems.reduce((a, it) => a + it.fl * it.g, 0);
     const bakers = flour ? `<details><summary>Baker's percentage</summary><table><tbody>${bpItems.map(it =>

@@ -1,4 +1,4 @@
-import json, re, sys, os
+import json, math, re, sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data import R
 
@@ -69,7 +69,9 @@ def term_grams(t, key):
     return None
 
 def fmt(g, approx=False):
-    s = f"{g:.1f} g" if g < 10 else f"{round(g)} g"
+    # Round half up (Python's round() goes half-to-even, so 12.5 showed as 12).
+    tenths = math.floor(g * 10 + 0.5) / 10
+    s = f"{tenths:.1f} g" if tenths < 10 else f"{math.floor(g + 0.5)} g"
     return ("~" + s) if approx else s
 
 def grams(amt, key):
@@ -215,7 +217,7 @@ def render(r, urls):
             if tag.startswith('warn:'):
                 _, rest = tag.split(':', 1)
                 col, msg, ovr = rest.split('|')
-                wcol = sizes.index({'1lb': '1 lb'}[col]); woverride = ovr
+                wcol = sizes.index({'1lb': '1 lb', '1.5lb': '1½ lb', '2lb': '2 lb'}[col]); woverride = ovr
                 warns.append(msg)
             for i, a in enumerate(amts):
                 if i == wcol:
