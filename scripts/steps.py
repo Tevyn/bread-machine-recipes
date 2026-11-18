@@ -36,6 +36,8 @@ STEPS = {
     "Rye Bread": [first(), go("White"), RESHAPE, COOL],
     "Jalapeño Cheddar Bread": [first("jalapeño and cheddar"), go("White"), addin("jalapeño and cheddar"), RESHAPE, COOL],
     "French Bread Loaf": [first(), go("French", False), RESHAPE, COOL],
+    "King Arthur-Style French Bread": [first(), go("French", False), RESHAPE,
+        "Get it out of the machine as soon as it's done so steam doesn't soften the crust, then let it cool completely on a rack before slicing."],
     "Rustic Italian Loaf": [first("sesame seeds"), go("French", False),
         "At the paddle beep you can pull the paddle, reshape, and sprinkle the sesame seeds on top.", COOL],
     "Country French Bread with Olives & Rosemary": [first("olives"), go("French", False), addin("olives"), RESHAPE, COOL],
