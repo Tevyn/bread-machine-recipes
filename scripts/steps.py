@@ -1,33 +1,31 @@
 """Conversational steps (and typo notes) for the site. Keyed by recipe name in data.py."""
 
 def first(x=None):
-    return f"Weigh everything{' except the ' + x if x else ''} into the pan in order, with the paddle in, then lock the pan in."
+    return f"Add everything except the {x}, in order." if x else "Add everything in order."
 
-DOUGH_FIRST = "Weigh the dough ingredients into the pan in order, with the paddle in, then lock the pan in."
+DOUGH_FIRST = "Add the dough ingredients in order."
 
 def go(prog, crust=True):
-    return f"Set it to {prog}, pick your {'crust and ' if crust else ''}loaf size, and start it."
+    return f"Run it on {prog}."
 
 def addin(x):
-    return f"Add the {x} when it beeps for add-ins."
+    return f"Toss in the {x} at the add-in beep."
 
-RESHAPE = "If you want a tidier loaf, pull the dough out at the paddle beep, take the paddle out, reshape it, and put it back."
-COOL = "When it's done, turn it out onto a rack and let it cool all the way before slicing."
-DOUGH = "Set it to Dough and start it. It takes an hour and a half."
-GF_GO = "Set it to Gluten Free and start it."
-GF_RESHAPE = "If you want, take the paddle out at the paddle beep and reshape the dough before it carries on."
+RESHAPE = "If you want a tidier loaf, pull the paddle at the paddle beep and reshape the dough before it carries on."
+COOL = "Let it cool completely on a rack before slicing."
+DOUGH = "Run it on Dough. It takes an hour and a half."
+GF_GO = "Run it on Gluten Free."
+GF_RESHAPE = RESHAPE
 
-JAM = [first(), "Set it to Jam and start it. It takes about an hour and 20 minutes.",
-       "About 10 to 15 minutes in, scrape down the pan so everything mixes.",
-       "When it's done, spoon it into clean jars, let it cool, and cover. It keeps about 3 weeks in the fridge."]
-CAKE = ["Spray the inside of the pan, with the paddle in.",
-        "Add everything in order and lock the pan in.",
-        "Set it to Cake and start it.",
-        "While it mixes, scrape down the sides with a spatula.",
-        "When it's done, turn it out onto a rack and let it cool before slicing. If the top's still a little wet, give it 10 to 15 more minutes on Keep Warm first."]
-ROLL_IT = ("At the paddle beep, pull the dough out and take the paddle out. Roll the dough into a rectangle about ¼ inch thick "
-           "and 16 inches long, {spread}, and roll it up tight from a short end. Tuck the ends under, set it back in the pan "
-           "with no paddle, and start it again.")
+JAM = [first(), "Run it on Jam.",
+       "Scrape down the pan about 10 to 15 minutes in so everything mixes.",
+       "Jar it, let it cool, and cover. It keeps about 3 weeks in the fridge."]
+CAKE = ["Spray the pan, then add everything in order.",
+        "Run it on Cake, and scrape down the sides with a spatula while it mixes.",
+        "Let it cool on a rack before slicing. If the top's still a little wet, give it 10 to 15 minutes on Keep Warm first."]
+ROLL_IT = ("At the paddle beep, pull the dough and the paddle. Roll the dough into a rectangle about ¼ inch thick "
+           "and 16 inches long, {spread}, and roll it up tight from a short end. Tuck the ends under and set it back in "
+           "the pan without the paddle.")
 
 STEPS = {
     "Basic White Bread": [first(), go("White"), RESHAPE, COOL],
@@ -39,7 +37,7 @@ STEPS = {
     "Jalapeño Cheddar Bread": [first("jalapeño and cheddar"), go("White"), addin("jalapeño and cheddar"), RESHAPE, COOL],
     "French Bread Loaf": [first(), go("French", False), RESHAPE, COOL],
     "Rustic Italian Loaf": [first("sesame seeds"), go("French", False),
-        "At the paddle beep you can take the paddle out, reshape, and sprinkle the sesame seeds on top before it carries on.", COOL],
+        "At the paddle beep you can pull the paddle, reshape, and sprinkle the sesame seeds on top.", COOL],
     "Country French Bread with Olives & Rosemary": [first("olives"), go("French", False), addin("olives"), RESHAPE, COOL],
     "Parmesan Peppercorn French Bread": [first(), go("French", False), RESHAPE, COOL],
     "Semolina Bread with Fennel & Golden Raisins": [first("raisins"), go("French", False), addin("raisins"), RESHAPE, COOL],
@@ -64,10 +62,10 @@ STEPS = {
         "While it kneads, mix the sugar and cinnamon in a small bowl.",
         "At the paddle beep, pull the dough and the paddle. Dust the counter heavily with GF flour (the blend or white rice flour), "
         "roll the dough into a rectangle about ¼ inch thick and 16 inches long, sprinkle the swirl over it, and roll it up tight "
-        "from a short end. Tuck the ends under, set it back in the pan with no paddle, and start it again.", COOL],
+        "from a short end. Tuck the ends under and set it back in the pan without the paddle.", COOL],
     "Gluten-Free Pizza Dough": ["Heat the oven to 400°F with racks in the lower and upper thirds.",
         first("brushing oil and toppings"), GF_GO,
-        "When it beeps for the paddle, hold start/stop until it beeps again to end the program. The dough's done.",
+        "At the paddle beep, end the program. The dough's done.",
         "Shape it into two 12-inch or four 6-inch rounds. Extra dough keeps overnight in the fridge or a month in the freezer.",
         "Brush the edges with oil and par-bake on the lower rack for 15 minutes, until the edges just firm up.",
         "Top it and finish on the upper rack, about 10 more minutes, until the edges brown."],
@@ -77,14 +75,14 @@ STEPS = {
         "After day five it should have doubled, be full of bubbles, and smell sweet and yeasty. Stir it, toss half, and feed it 57 g water and 57 g flour. Now it's ready.",
         "Keep it in the fridge and feed it 57 g of each once a week. Give it 12 to 24 hours at room temperature before you bake with it."],
     "Sourdough Loaf and Boule": [first("cornmeal"),
-        "Set it to Artisan Dough and start it. It runs about 5 hours.",
-        "For a loaf, take the paddle out when it finishes, switch to Bake, and set it for 60 minutes.",
+        "Run it on Artisan Dough. It takes about 5 hours.",
+        "For a loaf, pull the paddle when it finishes and run Bake for 60 minutes.",
         "For a boule, shape the dough into a 10-inch round on a floured counter, cover it loosely, and let it rest 20 to 30 minutes while the oven heats to 425°F.",
         "Move it to a parchment-lined sheet dusted with cornmeal, dust the top with flour, and slash an X about ¼ inch deep. Bake 25 to 30 minutes, until it's browned and sounds hollow, then let it cool completely."],
     "Ciabatta": [
         "The night before, mix the sponge in a big bowl, cover it loosely, and leave it out overnight (up to a day). It should be bubbly and smell a little sour.",
-        "Put the sponge in the pan first, then the rest of the dough ingredients in order, with the paddle in.",
-        "Set it to Artisan Dough and start it. It runs about 5 hours.",
+        "Add the sponge first, then the rest of the dough ingredients in order.",
+        "Run it on Artisan Dough. It takes about 5 hours.",
         "When it's done, move the dough onto a parchment-lined pan, shape it into a 12-inch oblong, cover it loosely, and let it rest about 20 minutes.",
         "Heat the oven to 425°F, dust the top with flour, and bake about 30 minutes, until it's lightly browned and sounds hollow. Let it cool completely."],
     "French Baguettes": [first("cornmeal"), DOUGH,
@@ -97,7 +95,7 @@ STEPS = {
         "Heat the oven to 375°F with racks in the upper and lower spots.",
         "Brush them with oil and bake 15 to 20 minutes until golden, swapping the pans halfway."],
     "Pizza Dough": [first(), DOUGH, "Then use it for whatever pizza you're making, like the Pizza Margherita."],
-    "Herb Focaccia": ["Weigh the crust ingredients into the pan in order, with the paddle in, then lock the pan in.", DOUGH,
+    "Herb Focaccia": ["Add the crust ingredients in order.", DOUGH,
         "Punch it down on a floured counter and let it rest 10 minutes.",
         "Oil a shallow rimmed pan and dust it with cornmeal. Roll the dough out to fit, cover it loosely, and let it rise somewhere warm until it's about doubled, 40 to 50 minutes.",
         "Heat the oven to 450°F. Press dimples all over with oiled fingertips, about ½ inch deep and an inch apart, then drizzle the oil and scatter the salt, Parmesan, and herbs.",
