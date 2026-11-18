@@ -168,6 +168,8 @@ STEPS = {
 
 WARN = {
     "Basic White Bread": "The booklet says 1½ teaspoons of butter for the 1 lb loaf, but the other sizes and similar recipes all point to 1½ tablespoons, so that's what this is. Taken literally it would be 7 g.",
+    "Jalapeño Cheddar Bread": "The booklet says 1 cup of buttermilk for the 1½ lb loaf, but the 2 lb and 1 lb loaves both work out to 71% of the flour, so this uses 1 cup + 2 tablespoons to match. Taken literally it would be 227 g.",
+    "Rustic Italian Loaf": "The booklet says 1 cup of water for the 1½ lb loaf, but the 2 lb and 1 lb loaves both work out to 71% of the flour, so this uses 1 cup + 2 tablespoons to match. Taken literally it would be 227 g.",
     "Panettone Loaf": "The booklet says 1¾ teaspoons of nutmeg for the 1 lb loaf, which is more than the bigger loaf gets, so this treats it as ¼ teaspoon. Taken literally it would be 3.9 g.",
 }
 

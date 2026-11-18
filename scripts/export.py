@@ -23,7 +23,11 @@ def gnum(amt, key):
     return round(tot, 2)
 
 def dough_section(title):
-    return not title or not any(w in title.lower() for w in NOT_DOUGH)
+    # Ignore parenthetical asides so "Dough (goes in the pan)" isn't caught by 'pan'.
+    head = re.sub(r'\s*\(.*?\)', '', title or '').lower()
+    return not title or not any(w in head for w in NOT_DOUGH)
+
+WARN_COL = {'1lb': '1 lb', '1.5lb': '1½ lb', '2lb': '2 lb'}
 
 BEEPS = {  # elapsed h:mm
     'White': ('0:40', '1:15'), 'French': ('1:15', '1:55'), 'Whole Wheat': ('0:50', '1:35'),
@@ -44,7 +48,7 @@ def recipe(r):
             if tag.startswith('warn:'):
                 _, rest = tag.split(':', 1)
                 col, msg, ovr = rest.split('|')
-                wi = sizes.index('1 lb'); warns.append(WARN[r['name']])
+                wi = sizes.index(WARN_COL[col]); warns.append(WARN[r['name']])
             for i, a in enumerate(amts):
                 g.append(grams(ovr, key) + ' †' if i == wi else grams(a, key))
             o = [orig] if orig and len(amts) == 1 else amts

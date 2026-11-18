@@ -1,6 +1,6 @@
 # Cuisinart CBK-110 recipe booklet, transcribed. Amount strings are as printed.
 # item: (label, density_key, [amounts per size], tag, original_line_override)
-# tag: "" normal | "addin" (hold back, add at add-in beep) | "warn:<msg>|<gram override>"
+# tag: "" normal | "addin" (hold back, add at add-in beep) | "warn:<col>|<msg>|<gram override>" (col: 1lb, 1.5lb, 2lb)
 
 L3 = ["2 lb", "1½ lb", "1 lb"]
 L2 = ["1½ lb", "1 lb"]
@@ -95,7 +95,8 @@ recipe(name="Rye Bread", program="White", page=25, sizes=L3, delay="Yes", ultraf
 recipe(name="Jalapeño Cheddar Bread", program="White", page=26, sizes=L3, delay="No", ultrafast=True,
        typ="Bread loaf", flavor="Savory", keyings=["Cheese"], attention=["Add-ins at beep"],
        sections=[(None, [
-           I("Buttermilk, room temperature", "buttermilk", ["1½ cups", "1 cup", "¾ cup"]),
+           I("Buttermilk, room temperature", "buttermilk", ["1½ cups", "1 cup", "¾ cup"],
+             tag="warn:1.5lb|Booklet prints 1 cup of buttermilk for the 1½ lb loaf, which is 63% of the flour while the 2 lb and 1 lb loaves are both 71%. The gram figure uses 1 cup + 2 tablespoons to match. As printed it would be 227 g.|1 cup + 2 tablespoons"),
            I("Hot pepper sauce", "hot_sauce", ["¾ teaspoon", "½ teaspoon", "¼ teaspoon"]),
            I("Unsalted butter, room temperature, cut into ½-inch pieces", "butter", ["3 tablespoons", "2 tablespoons + 1 teaspoon", "1½ tablespoons"]),
            I("Granulated sugar", "sugar", ["1 tablespoon", "2 teaspoons", "1½ teaspoons"]),
@@ -140,7 +141,8 @@ recipe(name="King Arthur-Style French Bread", program="French", page=28.5, sizes
 recipe(name="Rustic Italian Loaf", program="French", page=29, sizes=L3, delay="Yes", ultrafast=True,
        typ="Bread loaf", flavor="Savory", keyings=["Whole grain", "Seeds"], attention=[],
        sections=[(None, [
-           I("Water, room temperature", "water", ["1½ cups", "1 cup", "¾ cup"]),
+           I("Water, room temperature", "water", ["1½ cups", "1 cup", "¾ cup"],
+             tag="warn:1.5lb|Booklet prints 1 cup of water for the 1½ lb loaf, which is 63% of the flour while the 2 lb and 1 lb loaves are both 71%. The gram figure uses 1 cup + 2 tablespoons to match. As printed it would be 227 g.|1 cup + 2 tablespoons"),
            I("Olive oil", "olive_oil", ["2 tablespoons", "1½ tablespoons", "1 tablespoon"]),
            I("Kosher salt", "salt", ["2 teaspoons", "1½ teaspoons", "1 teaspoon"]),
            I("Granulated sugar", "sugar", ["1 teaspoon", "¾ teaspoon", "½ teaspoon"]),
