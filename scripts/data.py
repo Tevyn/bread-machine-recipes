@@ -133,8 +133,7 @@ recipe(name="King Arthur-Style French Bread", program="French", page=28.5, sizes
            I("Bread flour", "bread_flour", ["4 cups", "3¼ cups", "2¼ cups + 2 tablespoons"]),
            I("Yeast (active dry, instant or bread machine)", "yeast", ["1¾ teaspoons", "1¼ teaspoons + ⅛ teaspoon", "1 teaspoon"]),
        ])],
-       steps=[FIRST, LOAD("French", crust=False), RESHAPE,
-              "When it finishes, turn the loaf out right away so steam doesn't soften the crust, and let it cool completely on a wire rack before slicing."],
+       steps=[FIRST, LOAD("French", crust=False), RESHAPE, COOL],
        notes=["Adapted from King Arthur's professional French bread formula: 67% water, 2% salt and 1.1% yeast by flour weight. Their version builds an overnight poolish; here that flour and water simply go into one dough."],
        nutrition="Estimated per 2-oz slice: 137 cal (4% from fat) · carb 27 g · protein 5 g · fat 1 g · sat fat 0 g · chol 0 mg · sodium 300 mg · calcium 6 mg · fiber 1 g")
 
