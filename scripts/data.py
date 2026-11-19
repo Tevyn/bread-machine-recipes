@@ -472,28 +472,6 @@ recipe(name="Gluten-Free Pizza Dough", program="Gluten Free", page=50, sizes=["2
        nutrition="Per serving (12 servings): 194 cal (30% from fat) · carb 31 g · protein 3 g · fat 7 g · sat fat 1 g · chol 0 mg · sodium 484 mg · calcium 21 mg · fiber 3 g")
 
 # ---------------- ARTISAN DOUGH ----------------
-recipe(name="Sourdough Starter", program="No machine", page=53, sizes=["Starter"], delay="n/a", ultrafast=False,
-       yield_="About 1 lb of active starter after 5 days",
-       typ="Starter", flavor="Plain", keyings=["Whole grain"], attention=["Overnight prep"],
-       sections=[("Day 1 (stir in a glass or ceramic bowl)", [
-           I("Water, room temperature", "water", "4 ounces", orig="4 ounces*"),
-           I("Unbleached all-purpose flour", "ap_flour", "2 ounces", orig="2 ounces*"),
-           I("Whole wheat flour", "ww_flour", "2 ounces", orig="2 ounces*"),
-       ]), ("Daily feed, days 2–5 (add to the bowl)", [
-           I("Water", "water", "4 ounces"),
-           I("Flour (booklet just says flour; keeping the 50/50 all-purpose/whole wheat mix works well)", "ap_flour", "4 ounces"),
-       ]), ("Day-5 refresh & weekly fridge feed (after discarding half)", [
-           I("Water", "water", "2 ounces"),
-           I("Flour", "ap_flour", "2 ounces"),
-       ])],
-       steps=["**Day 1:** stir the water and both flours until smooth in a glass or ceramic bowl. Cover loosely with plastic wrap or a damp towel and leave it in one spot at room temperature for 24 hours.",
-              "**Days 2–5:** once a day, stir in another 113 g water + 113 g flour until smooth, then cover again.",
-              "**After day 5:** it should have doubled, be full of bubbles, and smell sweet and yeasty. Stir, discard half (or give it away), then stir in 57 g water + 57 g flour. It's ready to use.",
-              "**To store:** keep it in the fridge and feed it weekly with 57 g water + 57 g flour. Leave it at room temperature for 12–24 hours before baking with it."],
-       notes=["The booklet already gives this recipe by weight. The original drawer also has its cup version for anyone without a scale."],
-       nutrition="(none listed)",
-       orig_extra="Cup version if you have no scale: ½ cup water, ½ cup less 1 tablespoon all-purpose flour, ½ cup less 1½ tablespoons whole-wheat flour (spooned and leveled).")
-
 recipe(name="Sourdough Loaf and Boule", program="Artisan Dough", page=52, sizes=["1½ lb"], delay="No", ultrafast=False,
        yield_="One 1½ lb loaf or boule", machine_note="5:05 dough cycle, then 60 min on Bake for the loaf (or bake the boule in the oven)",
        typ="Bread loaf", flavor="Plain", keyings=[], attention=["Oven finish"],
@@ -511,10 +489,8 @@ recipe(name="Sourdough Loaf and Boule", program="Artisan Dough", page=52, sizes=
               "**Loaf (bakes in the machine):** when the cycle ends, remove the paddle, switch to **Bake** and set it for **60 min**.",
               "**Boule (oven):** when the cycle ends, shape the dough into a 10-in round on a lightly floured surface. Cover loosely and rest 20–30 min. Heat the oven to **425°F**, rack in the middle.",
               "Move it to a parchment-lined sheet dusted with cornmeal, dust the top with flour, and slash an **X** about ¼ in deep. Bake 25–30 min, until browned and hollow-sounding. Cool completely on a rack before slicing."],
-       notes=["*Starter weight assumes a 100%-hydration starter (equal weights flour and water), about 227 g per cup. Stir it down before measuring.",
-              "Make your own: see Sourdough Starter."],
-       nutrition="Per 2-oz slice: 81 cal (1% from fat) · carb 18 g · protein 3 g · fat 0 g · sat fat 0 g · chol 0 mg · sodium 195 mg · calcium 1 mg · fiber 1 g",
-       links=["Sourdough Starter"])
+       notes=["*Starter weight assumes a 100%-hydration starter (equal weights flour and water), about 227 g per cup. Stir it down before measuring."],
+       nutrition="Per 2-oz slice: 81 cal (1% from fat) · carb 18 g · protein 3 g · fat 0 g · sat fat 0 g · chol 0 mg · sodium 195 mg · calcium 1 mg · fiber 1 g")
 
 recipe(name="Ciabatta", program="Artisan Dough", page=54, sizes=["1½ lb"], delay="No", ultrafast=False,
        yield_="One 1½ lb loaf",
@@ -593,7 +569,7 @@ recipe(name="Pizza Dough", program="Dough", page=57, sizes=["Batch"], delay="No"
            I("Yeast (active dry, instant or bread machine)", "yeast", "1¾ teaspoons"),
        ])],
        steps=[FIRST, DOUGH_GO,
-              "When the cycle ends, take out the dough and use it in any pizza recipe, or see Pizza Margherita."],
+              "When the cycle ends, take out the dough and use it in any pizza recipe."],
        notes=["*All bread flour is fine. Swap the whole wheat for 68 g more bread flour (≈ the same volume)."],
        nutrition="Per serving (16 servings): 95 cal (13% from fat) · carb 13 g · protein 2 g · fat 1 g · sat fat 0 g · chol 0 mg · sodium 218 mg · calcium 2 mg · fiber 1 g")
 
@@ -906,100 +882,3 @@ recipe(name="Zucchini Bread", program="Cake", page=73, sizes=["Batch"], delay="N
        steps=CAKE_STEPS,
        notes=["Shredded zucchini packs differently every time; the grams use about 135 g/cup. Don't squeeze it dry, the batter counts on that moisture."],
        nutrition="Per serving (12): 183 cal (43% from fat) · carb 23 g · protein 4 g · fat 9 g · sat fat 1 g · chol 31 mg · sodium 228 mg · calcium 15 mg · fiber 1 g")
-
-# ---------------- BONUS (no machine) ----------------
-recipe(name="Breadcrumbs", program="No machine", page=74, sizes=["Batch"], delay="n/a", ultrafast=False,
-       yield_="4 cups from a 1 lb loaf", typ="Uses leftover bread", flavor="Savory", keyings=[], attention=["Overnight prep"],
-       sections=[(None, [
-           I("Basic White Bread (1 lb loaf)", "ref_white", "1 loaf"),
-       ]), ("Seasoned version (optional)", [
-           I("Dried oregano", "oregano_dried", "¼ teaspoon"),
-           I("Dried basil", "basil_dried", "¼ teaspoon"),
-           I("Garlic powder", "garlic_powder", "¼ teaspoon"),
-           I("Dried onion flakes, ground", "onion_flakes", "¼ teaspoon"),
-       ])],
-       steps=["Break the loaf into large pieces and leave them out uncovered overnight.",
-              "Pulse in a food processor to break them up, then run it 40–60 s until finely ground. For seasoned crumbs, add the herbs and spices to the bread first."],
-       nutrition="Per 2 tbsp: 48 cal (15% from fat) · carb 9 g · protein 1 g · fat 1 g · sat fat 1 g · chol 2 mg · sodium 95 mg · calcium 5 mg · fiber 0 g",
-       links=["Basic White Bread"])
-
-recipe(name="Croutons", program="No machine", page=74, sizes=["Batch"], delay="n/a", ultrafast=False,
-       yield_="6 cups from a 1 lb loaf", typ="Uses leftover bread", flavor="Savory", keyings=[], attention=["Oven finish"],
-       sections=[(None, [
-           I("Basic White Bread (1 lb loaf)", "ref_white", "1 loaf"),
-           I("Olive oil", "olive_oil", "1 to 2 tablespoons"),
-           I("Kosher salt", "salt", "Pinch"),
-       ])],
-       steps=["Heat the oven to **325°F**.",
-              "Cut the bread into ½-in cubes and toss with the oil in a large bowl. Spread on a rimmed sheet in a single layer (use 2 pans if needed) and sprinkle evenly with salt.",
-              "Bake about 20 min, until golden brown."],
-       nutrition="Per ¼ cup: 69 cal (22% from fat) · carb 12 g · protein 2 g · fat 2 g · sat fat 1 g · chol 3 mg · sodium 132 mg · calcium 7 mg · fiber 0 g",
-       links=["Basic White Bread"])
-
-recipe(name="Challah French Toast", program="No machine", page=75, sizes=["Batch"], delay="n/a", ultrafast=False,
-       yield_="8–10 slices", typ="Uses leftover bread", flavor="Sweet", keyings=["Spice"], attention=[],
-       sections=[(None, [
-           I("Large eggs", "egg", "8"),
-           I("Milk (any kind)", "milk", "2 cups"),
-           I("Pure vanilla extract", "vanilla", "1 tablespoon"),
-           I("Pure maple syrup", "maple", "2 tablespoons"),
-           I("Ground cinnamon", "cinnamon", "1 teaspoon"),
-           I("Ground nutmeg", "nutmeg", "Pinch"),
-           I("Kosher salt", "salt", "1 to 2 pinches"),
-           I("Challah, sliced ¾ inch thick", "ref_challah", "8 to 10 slices"),
-           I("Butter or coconut oil, for the griddle", "none", "", tag="top"),
-           I("Confectioners' sugar, fresh fruit and maple syrup, to serve", "none", "", tag="top"),
-       ])],
-       steps=["Whisk the eggs, milk, vanilla, maple syrup, cinnamon, nutmeg and salt in a bowl, then pour into a 13 × 9-in dish.",
-              "Soak half the bread, turning so both sides are saturated.",
-              "Heat a griddle over medium to medium-high and add about 1 tbsp butter or oil.",
-              "Cook the soaked slices 3½–4 min per side. Soak the second batch while the first cooks.",
-              "Keep cooked slices warm in a low oven while you finish the rest.",
-              "Serve dusted with confectioners' sugar, with fruit and maple syrup."],
-       nutrition="Per slice (10 slices): 189 cal (37% from fat) · carb 23 g · protein 6 g · fat 8 g · sat fat 4 g · chol 170 mg · sodium 174 mg · calcium 81 mg · fiber 1 g",
-       links=["Challah Loaf"])
-
-recipe(name="Berry Brioche Bread Pudding", program="No machine", page=76, sizes=["Batch"], delay="n/a", ultrafast=False,
-       yield_="6–8 servings (9-in round pan)", typ="Uses leftover bread", flavor="Sweet", keyings=["Fruit"], attention=["Overnight prep", "Oven finish"],
-       sections=[(None, [
-           I("Brioche, cut into 1-inch cubes (about 10 cups)", "ref_brioche", "1 pound", orig="1 loaf (1 pound), about 10 cups cubed"),
-           I("Large eggs, lightly beaten", "egg", "4"),
-           I("Granulated sugar", "sugar", "¼ cup"),
-           I("Kosher salt", "salt", "½ teaspoon"),
-           I("Whole milk", "milk", "1½ cups"),
-           I("Heavy cream", "cream", "1½ cups"),
-           I("Pure vanilla extract", "vanilla", "2 teaspoons"),
-           I("Mixed berry jam (homemade or store-bought)", "jam", "1 cup"),
-           I("Nonstick spray or softened butter, for the pan", "none", "", tag="top"),
-           I("Whipped cream, to serve", "none", "", tag="top"),
-       ])],
-       steps=["Put the bread cubes in a large bowl.",
-              "Whisk the eggs, sugar and salt until light and frothy, then whisk in the milk, cream and vanilla. Pour over the bread and stir gently to coat. Cover and refrigerate **at least 3 hours**, or overnight.",
-              "Let it come to room temperature, then gently fold in the jam.",
-              "Heat the oven to **350°F**, rack in the lower third. Grease a 9-in round pan and add the bread mixture.",
-              "Bake loosely covered with foil for 1 hour, then uncovered about 15 min more, until puffed. It's done at an internal **160°F**. Serve right away with whipped cream."],
-       nutrition="Per serving (8): 507 cal (46% from fat) · carb 56 g · protein 10 g · fat 25 g · sat fat 16 g · chol 215 mg · sodium 418 mg · calcium 94 mg · fiber 1 g",
-       links=["Brioche Loaf", "Mixed Berry Jam"])
-
-recipe(name="Pizza Margherita", program="No machine", page=77, sizes=["Batch"], delay="n/a", ultrafast=False,
-       yield_="9 servings (rimmed baking tray)", typ="Uses leftover bread", flavor="Savory", keyings=["Cheese", "Herbs"], attention=["Oven finish"],
-       sections=[(None, [
-           I("Olive oil, divided (1 tsp pan · 2 tbsp sauce · rest for edges)", "olive_oil", "3 tablespoons", orig="3 tablespoons, divided"),
-           I("Cornmeal, for dusting the pan", "none", "", tag="top"),
-           I("Pizza Dough, room temperature", "ref_pizza", "1 recipe", orig="1 recipe (booklet p. 57)"),
-           I("Dried basil", "basil_dried", "½ teaspoon"),
-           I("Dried oregano", "oregano_dried", "¼ teaspoon"),
-           I("Crushed red pepper", "red_pepper", "¼ teaspoon"),
-           I("Whole peeled tomatoes, drained (1 large can)", "tomatoes", "28 ounces", orig="1 large can (28 ounces)"),
-           I("Kosher salt", "salt", "½ teaspoon"),
-           I("Fresh mozzarella, cut into 9 slices", "mozzarella", "8 ounces"),
-           I("Fresh basil leaves, to garnish", "none", "", tag="top"),
-       ])],
-       steps=["Heat the oven to **450°F**, rack in the lower third.",
-              "Brush a rimmed tray with 1 tsp of the oil (4 g) and dust with cornmeal. Stretch the dough evenly into the tray, cover, and let rise 30 min.",
-              "Meanwhile, make the sauce: heat 2 tbsp of the oil (25 g) with the basil, oregano and red pepper in a small saucepan over medium-high. Add the drained tomatoes carefully and crush them with a wooden spoon as they heat. Once simmering, lower to medium and simmer 20–30 min to reduce slightly. Off the heat, stir in the salt.",
-              "Spread the sauce over the dough, leaving a 1-in border. Lay the mozzarella in 3 rows of 3 and brush the edges with the remaining oil.",
-              "Bake about 25 min, until the cheese has melted, the crust is golden and the bottom crisp. Garnish with basil."],
-       notes=["The 28 oz is the can's labeled weight. Drained, you'll have roughly 500 g of tomatoes."],
-       nutrition="(none listed)",
-       links=["Pizza Dough"])

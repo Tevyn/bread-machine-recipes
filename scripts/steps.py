@@ -84,11 +84,6 @@ STEPS = {
         "Shape it into two 12-inch or four 6-inch rounds. Extra dough keeps overnight in the fridge or a month in the freezer.",
         "Brush the edges with oil and par-bake on the lower rack for 15 minutes, until the edges just firm up.",
         "Top it and finish on the upper rack, about 10 more minutes, until the edges brown."],
-    "Sourdough Starter": [
-        "Day one: stir the water and both flours together in a glass or ceramic bowl until smooth. Cover it loosely and leave it somewhere at room temperature for a day.",
-        "Days two through five: stir in another 113 g water and 113 g flour each day, then cover it again.",
-        "After day five it should have doubled, be full of bubbles, and smell sweet and yeasty. Stir it, toss half, and feed it 57 g water and 57 g flour. Now it's ready.",
-        "Keep it in the fridge and feed it 57 g of each once a week. Give it 12 to 24 hours at room temperature before you bake with it."],
     "Sourdough Loaf and Boule": [first("cornmeal"),
         "Run it on Artisan Dough. It takes about 5 hours.",
         "For a loaf, pull the paddle when it finishes and run Bake for 60 minutes.",
@@ -109,7 +104,7 @@ STEPS = {
         "Roll it into a rectangle about ¼ inch thick, 10 by 22 inches. Cut ½-inch strips, twist each one into a tight spiral, and lay them out with a little space between. Cover and let them rest about 30 minutes.",
         "Heat the oven to 375°F with racks in the upper and lower spots.",
         "Brush them with oil and bake 15 to 20 minutes until golden, swapping the pans halfway."],
-    "Pizza Dough": [first(), DOUGH, "Then use it for whatever pizza you're making, like the Pizza Margherita."],
+    "Pizza Dough": [first(), DOUGH, "Then use it for whatever pizza you're making."],
     "Herb Focaccia": ["Add the crust ingredients in order.", DOUGH,
         "Punch it down on a floured counter and let it rest 10 minutes.",
         "Oil a shallow rimmed pan and dust it with cornmeal. Roll the dough out to fit, cover it loosely, and let it rise somewhere warm until it's about doubled, 40 to 50 minutes.",
@@ -153,30 +148,6 @@ STEPS = {
     "Banana Walnut Bread": CAKE,
     "Sour Cream Chocolate Bread": CAKE,
     "Zucchini Bread": CAKE,
-    "Breadcrumbs": ["Tear the loaf into big pieces and leave them out uncovered overnight.",
-        "Pulse them in the food processor, then run it 40 to 60 seconds until fine. For seasoned crumbs, toss in the herbs and spices first."],
-    "Croutons": ["Heat the oven to 325°F.",
-        "Cut the bread into ½-inch cubes, toss them with the oil, and spread them out on a rimmed sheet (two if they're crowded). Sprinkle with salt.",
-        "Bake about 20 minutes, until golden."],
-    "Challah French Toast": [
-        "Whisk the eggs, milk, vanilla, maple syrup, cinnamon, nutmeg, and salt, and pour it into a 13 by 9 dish.",
-        "Soak half the bread, turning so both sides are soaked through.",
-        "Heat a griddle over medium to medium-high with about a tablespoon of butter or oil.",
-        "Cook the slices 3½ to 4 minutes a side, soaking the second batch while the first cooks.",
-        "Keep the finished ones warm in a low oven.",
-        "Serve with powdered sugar, fruit, and maple syrup."],
-    "Berry Brioche Bread Pudding": [
-        "Put the bread cubes in a big bowl.",
-        "Whisk the eggs, sugar, and salt until frothy, then whisk in the milk, cream, and vanilla. Pour it over the bread, stir gently, cover, and refrigerate at least 3 hours or overnight.",
-        "Let it come back to room temperature and fold in the jam.",
-        "Heat the oven to 350°F with a rack in the lower third, grease a 9-inch round pan, and pour in the bread mixture.",
-        "Bake loosely covered with foil for an hour, then uncovered about 15 more minutes until puffed. It's done at 160°F inside. Serve warm with whipped cream."],
-    "Pizza Margherita": [
-        "Heat the oven to 450°F with a rack in the lower third.",
-        "Brush a rimmed tray with a teaspoon of the oil (about 4 g) and dust it with cornmeal. Stretch the dough to fill the tray, cover it, and let it rise 30 minutes.",
-        "Meanwhile, make the sauce: heat 2 tablespoons of the oil (about 25 g) with the basil, oregano, and red pepper. Add the drained tomatoes, crush them with a wooden spoon, and simmer 20 to 30 minutes until it's a bit thicker. Stir in the salt off the heat.",
-        "Spread the sauce over the dough, leaving an inch around the edge. Lay the mozzarella out in three rows of three and brush the edges with the rest of the oil.",
-        "Bake about 25 minutes, until the cheese melts and the crust is golden and crisp underneath. Top with basil."],
 }
 
 ULTRA = ("Swap in rapid-rise yeast: 5.4 g for the 1 lb loaf or 7.8 g for the 1½ lb. Run it on Ultra-Fast (1:53 or 2:03) "

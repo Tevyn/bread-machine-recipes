@@ -126,7 +126,6 @@ TIMES = {
     'Dough': ({'Batch': '1:30'}, 90, None, None),
     'Jam': ({'Batch': '1:20'}, 80, None, None),
     'Cake': ({'Batch': '1:52'}, 112, None, None),
-    'No machine': ({}, None, None, None),
 }
 ICON = {
     'Basic White Bread': '🍞', 'Oatmeal Bread': '🥣', 'Cinnamon Swirl Bread': '🌀', 'Rye Bread': '🍞',
@@ -136,14 +135,13 @@ ICON = {
     'Multigrain Cereal Wheat Bread': '🌾', 'Nutty Whole Wheat Bread': '🥜', 'Wheat Bran Bread': '🌾',
     'Challah Loaf': '🍞', 'Brioche Loaf': '🧈', 'Panettone Loaf': '🍊', 'Chocolate Cherry Loaf': '🍒',
     'Babka': '🍫', 'Gluten-Free Sandwich Bread': '🥪', 'Gluten-Free Multigrain Bread': '🌱',
-    'Gluten-Free Cinnamon Swirl Bread': '🌀', 'Gluten-Free Pizza Dough': '🍕', 'Sourdough Starter': '🫙',
+    'Gluten-Free Cinnamon Swirl Bread': '🌀', 'Gluten-Free Pizza Dough': '🍕',
     'Sourdough Loaf and Boule': '🥖', 'Ciabatta': '🥖', 'French Baguettes': '🥖', 'Cheddar Breadsticks': '🧀',
     'Pizza Dough': '🍕', 'Herb Focaccia': '🌿', 'Pretzels': '🥨', 'Whole Wheat Kalamata Rolls': '🫒',
     'Garlic, Herb and Cheese Knots': '🧄', 'Cinnamon Swirl Rolls': '🌀', 'Basic Sweet Dough': '🥐',
     'Raspberry Cheese Danish': '🥮', 'Strawberry Rhubarb Jam': '🍓', 'Pear & Ginger Preserves': '🍐',
     'Blueberry Lime Jam': '🫐', 'Mixed Berry Jam': '🍇', 'Banana Walnut Bread': '🍌',
-    'Sour Cream Chocolate Bread': '🍫', 'Zucchini Bread': '🥒', 'Breadcrumbs': '🍞', 'Croutons': '🥗',
-    'Challah French Toast': '🍳', 'Berry Brioche Bread Pudding': '🍮', 'Pizza Margherita': '🍕',
+    'Sour Cream Chocolate Bread': '🍫', 'Zucchini Bread': '🥒',
 }
 DAIRY = {'milk', 'buttermilk', 'cream', 'sour_cream', 'yogurt', 'butter', 'dry_milk', 'cheddar', 'parmesan',
          'cream_cheese', 'mozzarella', 'choc_chopped', 'choc_chips', 'ref_white', 'ref_challah', 'ref_brioche', 'ref_sweet_dough'}
@@ -160,30 +158,27 @@ def render(r, urls):
 
     # ----- summary callout -----
     lines = []
-    if prog == 'No machine':
-        lines.append(f"**No bread machine needed** · Yield: {r.get('yield_')}")
+    head = f"**{prog} program**"
+    if prog in ('White', 'Whole Wheat', 'Sweet'):
+        head += " · choose crust + size"
+    elif prog == 'French':
+        head += " · choose size (no crust setting)"
+    head += f" · Delay start: {r['delay']}"
+    lines.append(head)
+    if multi:
+        tt = " · ".join(f"{times[s]} ({s})" for s in sizes if s in times)
     else:
-        head = f"**{prog} program**"
-        if prog in ('White', 'Whole Wheat', 'Sweet'):
-            head += " · choose crust + size"
-        elif prog == 'French':
-            head += " · choose size (no crust setting)"
-        head += f" · Delay start: {r['delay']}"
-        lines.append(head)
-        if multi:
-            tt = " · ".join(f"{times[s]} ({s})" for s in sizes if s in times)
-        else:
-            tt = r.get('machine_note') or times.get(sizes[0], list(times.values())[0])
-            y = r.get('yield_') or ''
-            if y.startswith('One '): y = 'one ' + y[4:]
-            tt = f"{tt}" + (f" · makes {y}" if y else "")
-        lines.append(f"Machine time: {tt}")
-        if addin_t and ('Add-ins at beep' in r['attention'] or 'Fill & roll at paddle beep' in r['attention'] or prog in ('White','French','Whole Wheat','Sweet','Gluten Free')):
-            bits = []
-            if 'Add-ins at beep' in r['attention']:
-                bits.append(f"add-in beep {addin_t}")
-            bits.append(f"paddle beep {paddle_t}")
-            lines.append("Beeps: " + " · ".join(bits))
+        tt = r.get('machine_note') or times.get(sizes[0], list(times.values())[0])
+        y = r.get('yield_') or ''
+        if y.startswith('One '): y = 'one ' + y[4:]
+        tt = f"{tt}" + (f" · makes {y}" if y else "")
+    lines.append(f"Machine time: {tt}")
+    if addin_t and ('Add-ins at beep' in r['attention'] or 'Fill & roll at paddle beep' in r['attention'] or prog in ('White','French','Whole Wheat','Sweet','Gluten Free')):
+        bits = []
+        if 'Add-ins at beep' in r['attention']:
+            bits.append(f"add-in beep {addin_t}")
+        bits.append(f"paddle beep {paddle_t}")
+        lines.append("Beeps: " + " · ".join(bits))
     links = r.get('links', [])
     if links:
         ms = []
@@ -196,7 +191,7 @@ def render(r, urls):
     # ----- gram tables -----
     out.append("## Ingredients (grams)")
     out.append("")
-    if prog not in ('No machine', 'Jam', 'Cake') and r['typ'] != 'Starter':
+    if prog not in ('Jam', 'Cake'):
         out.append("Load in this order: liquids first, then dry, then yeast last in a small well in the flour.")
         out.append("")
     warns = []
