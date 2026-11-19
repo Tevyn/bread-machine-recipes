@@ -138,10 +138,9 @@ recipe(name="King Arthur-Style French Bread", program="French", page=28.5, sizes
            I("Bread flour", "bread_flour", ["2¾ cups", "2¼ cups", "1½ cups + 2 tablespoons"]),
            I("Yeast (active dry, instant or bread machine)", "yeast", ["1¾ teaspoons", "1¼ teaspoons + ⅛ teaspoon", "1 teaspoon"]),
        ])],
-       steps=["**Night before:** stir the poolish ingredients together in a bowl until smooth. Cover and leave at room temperature 12–16 h, until it's bubbly and domed and just starting to sink in the middle.",
-              "Put the poolish in the pan first, then the remaining dough ingredients **in the order listed** (paddle in). Lock the pan in.",
+       steps=["**Night before:** mix the poolish, cover, and leave at room temperature 12–16 h.",
+              FIRST.replace("Put everything", "Put the poolish, then everything else"),
               LOAD("French", crust=False), RESHAPE, COOL],
-       notes=["Adapted from King Arthur's professional French bread with poolish: 67% water, 2% salt and 1.1% yeast by total flour weight, with about a third of the flour fermented overnight in an equal weight of water."],
        nutrition="Estimated per 2-oz slice: 137 cal (4% from fat) · carb 27 g · protein 5 g · fat 1 g · sat fat 0 g · chol 0 mg · sodium 300 mg · calcium 6 mg · fiber 1 g")
 
 recipe(name="Rustic Italian Loaf", program="French", page=29, sizes=L3, delay="Yes", ultrafast=True,

@@ -51,8 +51,8 @@ STEPS = {
     "Jalapeño Cheddar Bread": [first("jalapeño and cheddar"), go("White"), addin("jalapeño and cheddar", "White"), paddle("White"), COOL],
     "French Bread Loaf": [first(), go("French", False), paddle("French"), COOL],
     "King Arthur-Style French Bread": [
-        "The night before, stir the poolish together until smooth, cover it, and leave it out 12 to 16 hours. It's ready when it's bubbly and domed and just starting to sink in the middle.",
-        "Add the poolish first, then the rest of the dough ingredients in order.",
+        "The night before, mix the poolish, cover, and leave it out 12 to 16 hours.",
+        "Add the poolish, then everything else in order.",
         go("French", False), paddle("French"), COOL],
     "Rustic Italian Loaf": [first("sesame seeds"), go("French", False),
         paddle("French") + " Sprinkle the sesame seeds on top if you like.", COOL],
