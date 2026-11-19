@@ -132,7 +132,7 @@ recipe(name="King Arthur-Style French Bread", program="French", page=28.5, sizes
            I("Water, room temperature", "water", ["⅔ cup", "½ cup + 1 teaspoon", "⅓ cup + 1 tablespoon"]),
            I("Yeast, active dry or instant", "yeast", ["Pinch", "Pinch", "Pinch"]),
        ]), ("Dough", [
-           I("Poolish, ripe", "none", ["all", "all", "all"]),
+           I("Poolish", "none", ["all", "all", "all"]),
            I("Water, room temperature", "water", ["¾ cup + ½ teaspoon", "½ cup + 2 tablespoons + ½ teaspoon", "⅓ cup + 1 tablespoon + 2½ teaspoons"]),
            I("Kosher salt", "salt", ["1¾ teaspoons", "1½ teaspoons", "1 teaspoon"]),
            I("Bread flour", "bread_flour", ["2¾ cups", "2¼ cups", "1½ cups + 2 tablespoons"]),
