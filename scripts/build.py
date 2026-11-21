@@ -128,7 +128,7 @@ TIMES = {
     'Cake': ({'Batch': '1:52'}, 112, None, None),
 }
 ICON = {
-    'Basic White Bread': '🍞', 'Oatmeal Bread': '🥣', 'Cinnamon Swirl Bread': '🌀', 'Rye Bread': '🍞',
+    'Basic White Bread': '🍞', 'Breville White Bread': '🍞', 'Breville Bread Rolls': '🍞', 'Oatmeal Bread': '🥣', 'Cinnamon Swirl Bread': '🌀', 'Rye Bread': '🍞',
     'Jalapeño Cheddar Bread': '🌶️', 'French Bread Loaf': '🥖', 'King Arthur-Style French Bread': '🥖', 'Rustic Italian Loaf': '🥖',
     'Country French Bread with Olives & Rosemary': '🫒', 'Parmesan Peppercorn French Bread': '🧀',
     'Semolina Bread with Fennel & Golden Raisins': '🌾', 'Basic Whole Wheat Bread': '🌾',

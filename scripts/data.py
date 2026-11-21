@@ -42,6 +42,29 @@ recipe(name="Basic White Bread", program="White", page=21, sizes=L3, delay="Yes"
        steps=[FIRST, LOAD("White"), RESHAPE, COOL],
        nutrition="Per 2-oz slice: 96 cal (15% from fat) · carb 18 g · protein 3 g · fat 2 g · sat fat 1 g · chol 5 mg · sodium 189 mg · calcium 10 mg · fiber 0 g")
 
+# Not from the booklet: Breville BBM800 Basic White Bread. The manual is Australian (20 ml tablespoon, 59 g eggs,
+# table salt), so its amounts were weighed out, then each size scaled by flour to this machine's pans:
+# 1 kg (650 g flour) → 2 lb, 0.75 kg (500 g) → 1½ lb, 0.5 kg (2¼ AU cups ≈ 338 g) → 1 lb, at 480/360/240 g flour
+# like Basic White Bread. Breville's 1.25 kg loaf is too big for the CBK-110 and is left out. page=21.5 sorts it
+# next to Basic White Bread.
+recipe(name="Breville White Bread", program="White", page=21.5, sizes=L3, delay="Yes", ultrafast=False,
+       typ="Bread loaf", flavor="Plain", keyings=[], attention=[],
+       source="Adapted from Basic White Bread in the Breville BBM800 bread maker instruction manual.",
+       sections=[(None, [
+           I("Water, room temperature", "water", ["1 cup + 3 tablespoons", "¾ cup + 2 tablespoons", "½ cup + 1 tablespoon"]),
+           I("Vegetable oil", "veg_oil", ["2 tablespoons", "1 tablespoon", "1 tablespoon"]),
+           I("Kosher salt", "salt", ["1¼ teaspoons", "¾ teaspoon", "½ teaspoon"]),
+           I("Granulated sugar", "sugar", ["1½ tablespoons", "1 tablespoon", "2¼ teaspoons"]),
+           I("Bread flour", "bread_flour", ["4 cups", "3 cups", "2 cups"]),
+           I("Bread improver (optional)*", "none", ["½ teaspoon", "¼ teaspoon", "⅛ teaspoon"]),
+           I("Nonfat dry milk", "dry_milk", ["1½ tablespoons", "1 tablespoon", "2¼ teaspoons"]),
+           I("Yeast (active dry, instant or bread machine)", "yeast", ["1¼ teaspoons", "1 teaspoon + ⅛ teaspoon", "1 teaspoon + ⅛ teaspoon"]),
+       ])],
+       steps=[FIRST, LOAD("White"), RESHAPE, COOL],
+       notes=["*Bread improver is an Australian dough conditioner. Leave it out if you don't have it.",
+              "Scaled down from Breville's 1 kg, 750 g and 500 g loaves to fit this machine. Its 1.25 kg loaf is too big for the pan."],
+       nutrition="Estimated per 2-oz slice: 164 cal (14% from fat) · carb 30 g · protein 5 g · fat 3 g · sat fat 0 g · chol 0 mg · sodium 211 mg · calcium 16 mg · fiber 1 g")
+
 recipe(name="Oatmeal Bread", program="White", page=22, sizes=L3, delay="No", ultrafast=True,
        typ="Bread loaf", flavor="Plain", keyings=["Whole grain"], attention=[],
        sections=[(None, [
@@ -649,6 +672,32 @@ recipe(name="Whole Wheat Kalamata Rolls", program="Dough", page=60, sizes=["Batc
               "Cut 2 small slashes across each roll and dust with whole wheat flour. Bake 15–20 min, until dark golden. Cool on a rack."],
        notes=["For one large oval loaf, shape it the same way and bake about 10 min longer."],
        nutrition="Per roll: 147 cal (17% from fat) · carb 26 g · protein 5 g · fat 3 g · sat fat 0 g · chol 1 mg · sodium 141 mg · calcium 22 mg · fiber 3 g")
+
+# Not from the booklet: Breville BBM800 Bread Rolls. Its 600 g of flour makes about 2.3 lb of dough, more than the
+# CBK-110 holds, so everything is scaled ×0.8 to 480 g flour (2 lb dough, still 16 rolls). Australian measures
+# (20 ml tablespoon) were weighed out first; the 59 g Australian egg × 0.8 is close enough to one US large egg.
+# page=60.5 sorts it next to the other rolls.
+recipe(name="Breville Bread Rolls", program="Dough", page=60.5, sizes=["Batch"], delay="No", ultrafast=False,
+       yield_="16 rolls",
+       typ="Dough → oven", flavor="Plain", keyings=[], attention=["Oven finish"],
+       source="Adapted from Bread Rolls in the Breville BBM800 bread maker instruction manual.",
+       sections=[("Dough (goes in the pan)", [
+           I("Water, room temperature", "water", "1 cup + 1 tablespoon"),
+           I("Vegetable oil", "veg_oil", "2 tablespoons + ½ teaspoon"),
+           I("Kosher salt", "salt", "1 teaspoon"),
+           I("Granulated sugar", "sugar", "2 tablespoons + ½ teaspoon"),
+           I("Large egg, room temperature", "egg", "1"),
+           I("Bread flour", "bread_flour", "4 cups"),
+           I("Yeast (active dry, instant or bread machine)", "yeast", "1½ teaspoons + ⅛ teaspoon"),
+       ]), ("Glaze", [
+           I("Milk", "milk", "2 tablespoons"),
+       ])],
+       steps=["Put the **dough** ingredients into the pan (paddle in) in the order listed; lock the pan in.", DOUGH_GO,
+              "When the cycle ends, turn the dough out onto a lightly floured surface. Lightly grease a baking sheet.",
+              "Cut into 16 equal pieces (**about 52 g each**). Knead each briefly and shape into a round. Set them close together on the sheet, cover loosely with lightly greased plastic wrap, and let rise somewhere warm about 30 min, until doubled. Heat the oven to **400°F**.",
+              "Uncover, brush the tops with milk, and bake 12–15 min, until cooked through and golden brown."],
+       notes=["Scaled down from Breville's 600 g-flour batch so it fits this machine."],
+       nutrition="Estimated per roll: 136 cal (17% from fat) · carb 24 g · protein 4 g · fat 3 g · sat fat 0 g · chol 12 mg · sodium 136 mg · calcium 9 mg · fiber 1 g")
 
 recipe(name="Garlic, Herb and Cheese Knots", program="Dough", page=61, sizes=["Batch"], delay="No", ultrafast=False,
        yield_="12 knots",
