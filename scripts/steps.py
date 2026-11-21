@@ -43,6 +43,7 @@ ROLL_IT = ("Pull the dough and the paddle {at}. Roll the dough into a rectangle 
 
 STEPS = {
     "Basic White Bread": [first(), go("White"), paddle("White"), COOL],
+    "Breville White Bread": [first(), go("White"), paddle("White"), COOL],
     "Oatmeal Bread": [first(), go("White"), paddle("White"), COOL],
     "Cinnamon Swirl Bread": [DOUGH_FIRST, go("White"),
         "While it kneads, mix the swirl sugar and cinnamon (and the raisins, if you're using them) in a small bowl.",
@@ -123,6 +124,10 @@ STEPS = {
         "Turn it out onto a floured counter and line a sheet with parchment.",
         "Cut it into 12 pieces, shape each into an oval, and set them on the sheet. Cover and let them rise about 30 minutes, until roughly doubled. Heat the oven to 350°F.",
         "Cut two small slashes across each roll, dust with whole wheat flour, and bake 15 to 20 minutes, until they're dark golden."],
+    "Breville Bread Rolls": [DOUGH_FIRST, DOUGH,
+        "Turn it out onto a floured counter and grease a baking sheet.",
+        "Cut it into 16 pieces, about 52 g each. Knead each one a little, shape it into a ball, and set them close together on the sheet. Cover loosely with greased plastic wrap and let them rise somewhere warm about 30 minutes, until doubled. Heat the oven to 400°F.",
+        "Brush the tops with milk and bake 12 to 15 minutes, until they're golden brown."],
     "Garlic, Herb and Cheese Knots": [DOUGH_FIRST, DOUGH,
         "Turn it out onto a floured counter, sprinkle the garlic powder all over it, and line a sheet with parchment.",
         "Cut it into 12 pieces, roll each into a 10-inch rope, and tie it in a knot. Cover and let them rest about 30 minutes while the oven heats to 350°F.",
